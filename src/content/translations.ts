@@ -12,8 +12,8 @@ export const translations = {
 
     // Hero
     heroTitle: 'ดูแลสุขภาพฟันอย่างใส่ใจ มั่นใจทุกยิ้ม',
-    heroTitleLine1: 'ดูแลสุขภาพฟันอย่าง',
-    heroTitleLine2: 'ใส่ใจ มั่นใจทุกยิ้ม',
+    heroTitleLine1: 'ดูแลสุขภาพฟัน',
+    heroTitleLine2: 'ด้วยความใส่ใจ มั่นใจทุกยิ้ม',
     heroSubtitle: 'คลินิกทันตกรรมคุณภาพ ใจกลางเมืองนครพนม',
     heroCtaBook: 'นัดหมาย',
     heroCtaCall: 'โทร 083-345-7812',
