@@ -19,7 +19,7 @@ export default function Location() {
             <div className="aspect-video w-full rounded-2xl border-2 border-smilist-border overflow-hidden bg-smilist-background relative">
               <iframe
                 title="Smilist Dental Clinic - Google Maps"
-                src="https://www.google.com/maps?q=17.394040389519017,104.7752799843928&z=16&hl=th&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d475.9212714148485!2d104.7748523!3d17.3940142!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313c0f000781c2b9%3A0xe6c70c9e68f39a76!2zU21pbGlzdCBDbGluaWMg4Liq4LmE4Lih4Lil4Li04Liq4LiV4LmM4LiE4Lil4Li04LiZ4Li04LiB!5e0!3m2!1sth!2sth!4v1772350335501!5m2!1sth!2sth"
                 width="100%"
                 height="100%"
                 style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
@@ -30,7 +30,7 @@ export default function Location() {
               />
             </div>
             <a
-              href="https://maps.app.goo.gl/bMxFLT6XnYhcgUa58"
+              href="https://maps.app.goo.gl/XfERNpwaopbaTZD97"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-medium"

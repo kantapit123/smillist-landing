@@ -5,8 +5,6 @@ import Doctor from './sections/Doctor'
 import Services from './sections/Services'
 import WhySmilist from './sections/WhySmilist'
 import Pricing from './sections/Pricing'
-import Location from './sections/Location'
-import Reviews from './sections/Reviews'
 import FAQ from './sections/FAQ'
 import Contact from './sections/Contact'
 import { LanguageProvider } from './contexts/LanguageContext'
@@ -18,12 +16,10 @@ function App() {
         <Header />
         <main>
           <Hero />
-          <Services />
           <Doctor />
+          <Services />
           <WhySmilist />
           <Pricing />
-          <Location />
-          <Reviews />
           <FAQ />
           <Contact />
         </main>
