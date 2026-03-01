@@ -24,11 +24,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white/90 backdrop-blur-md shadow-sm'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -38,22 +37,10 @@ export default function Header() {
             className="flex items-center space-x-2 group"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-smilist-primary to-smilist-secondary flex items-center justify-center group-hover:scale-105 transition-transform">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <img src="public/smilist-logo.svg" alt="logo" width="100" height="100" ></img>
             </div>
             <span className="font-semibold text-lg text-smilist-primary">
-              Smilist
+              Smilist Dental Clinic
             </span>
           </button>
 
@@ -97,21 +84,19 @@ export default function Header() {
             <div className="flex items-center space-x-1 bg-smilist-surface rounded-full p-1 border border-smilist-border">
               <button
                 onClick={() => setLanguage('th')}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                  language === 'th'
-                    ? 'bg-smilist-primary text-white'
-                    : 'text-smilist-muted hover:text-smilist-text'
-                }`}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'th'
+                  ? 'bg-smilist-primary text-white'
+                  : 'text-smilist-muted hover:text-smilist-text'
+                  }`}
               >
                 TH
               </button>
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                  language === 'en'
-                    ? 'bg-smilist-primary text-white'
-                    : 'text-smilist-muted hover:text-smilist-text'
-                }`}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'en'
+                  ? 'bg-smilist-primary text-white'
+                  : 'text-smilist-muted hover:text-smilist-text'
+                  }`}
               >
                 EN
               </button>
