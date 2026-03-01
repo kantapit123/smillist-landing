@@ -125,7 +125,7 @@ export const translations = {
     bookingMessage: 'ข้อความเพิ่มเติม (ถ้ามี)',
     bookingSubmit: 'ส่งคำขอ',
     bookingSuccess: 'ส่งสำเร็จแล้วค่ะ เราจะติดต่อกลับเร็ว ๆ นี้',
-    contactInfoTitle: 'ช่องทางติดต่อด่วน',
+    contactInfoTitle: 'ช่องทางติดต่อนัดหมาย',
     contactPhone: 'โทรศัพท์',
     contactLine: 'LINE',
     contactFacebook: 'Facebook',
@@ -157,7 +157,7 @@ export const translations = {
     heroCardTitle: 'Opening Hours',
     heroCardHours: 'Tue – Sun: 11:00 AM – 8:00 PM',
     heroCardSunday: 'Monday: Closed',
-    heroCardQuickContact: 'Quick Contact',
+    heroCardQuickContact: 'Contact',
     heroCardBadge: 'International Standards',
 
     // Doctor
@@ -262,7 +262,7 @@ export const translations = {
     bookingMessage: 'Additional Notes (optional)',
     bookingSubmit: 'Send Request',
     bookingSuccess: "Sent successfully! We'll get back to you soon.",
-    contactInfoTitle: 'Quick Contact',
+    contactInfoTitle: 'Contact & Booking',
     contactPhone: 'Phone',
     contactLine: 'LINE',
     contactFacebook: 'Facebook',
