@@ -7,16 +7,16 @@ export default function Location() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('locationTitle')}
           </h2>
-          <p className="text-lg text-smilist-muted">{t('locationSubtitle')}</p>
+          <p className="text-lg text-gray">{t('locationSubtitle')}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Google Map */}
           <div className="relative">
-            <div className="aspect-video w-full rounded-2xl border-2 border-smilist-border overflow-hidden bg-smilist-background relative">
+            <div className="aspect-video w-full rounded-2xl border-2 border-sand-light overflow-hidden bg-sand relative">
               <iframe
                 title="Smilist Dental Clinic - Google Maps"
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d475.9212714148485!2d104.7748523!3d17.3940142!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313c0f000781c2b9%3A0xe6c70c9e68f39a76!2zU21pbGlzdCBDbGluaWMg4Liq4LmE4Lih4Lil4Li04Liq4LiV4LmM4LiE4Lil4Li04LiZ4Li04LiB!5e0!3m2!1sth!2sth!4v1772350335501!5m2!1sth!2sth"
@@ -33,7 +33,7 @@ export default function Location() {
               href="https://maps.app.goo.gl/XfERNpwaopbaTZD97"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-medium"
+              className="mt-4 w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-medium"
             >
               <svg
                 className="w-5 h-5"
@@ -54,11 +54,11 @@ export default function Location() {
 
           {/* Location Info */}
           <div className="space-y-6">
-            <div className="bg-smilist-background rounded-2xl border border-smilist-border p-6">
+            <div className="bg-sand rounded-2xl border border-sand-light p-6">
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-smilist-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-espresso/10 flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-6 h-6 text-smilist-primary"
+                    className="w-6 h-6 text-espresso"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -78,19 +78,19 @@ export default function Location() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-smilist-text mb-2">
+                  <h3 className="font-semibold text-charcoal mb-2">
                     {t('locationAddress')}
                   </h3>
-                  <p className="text-smilist-muted text-sm">{t('locationAddressDetail')}</p>
+                  <p className="text-gray text-sm">{t('locationAddressDetail')}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-smilist-background rounded-2xl border border-smilist-border p-6">
+            <div className="bg-sand rounded-2xl border border-sand-light p-6">
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-smilist-accent/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-espresso-light/10 flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-6 h-6 text-smilist-accent"
+                    className="w-6 h-6 text-espresso-light"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -104,21 +104,21 @@ export default function Location() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-smilist-text mb-2">
+                  <h3 className="font-semibold text-charcoal mb-2">
                     {t('locationParking')}
                   </h3>
-                  <p className="text-smilist-muted text-sm">{t('locationLandmark')}</p>
+                  <p className="text-gray text-sm">{t('locationLandmark')}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-smilist-primary/5 to-smilist-accent/5 rounded-2xl border border-smilist-border p-6">
-              <h3 className="font-semibold text-smilist-text mb-3">
+            <div className="bg-gradient-to-br from-espresso/5 to-espresso-light/5 rounded-2xl border border-sand-light p-6">
+              <h3 className="font-semibold text-charcoal mb-3">
                 {t('heroCardTitle')}
               </h3>
               <div className="space-y-2">
-                <p className="text-smilist-text font-medium">{t('heroCardHours')}</p>
-                <p className="text-smilist-muted">{t('heroCardSunday')}</p>
+                <p className="text-charcoal font-medium">{t('heroCardHours')}</p>
+                <p className="text-gray">{t('heroCardSunday')}</p>
               </div>
             </div>
           </div>

@@ -11,20 +11,6 @@ export default function WhySmilist() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      ),
-      title: t('why1Title'),
-      description: t('why1Desc'),
-    },
-    {
-      icon: (
-        <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
           />
         </svg>
@@ -66,26 +52,26 @@ export default function WhySmilist() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('whyTitle')}
           </h2>
-          <p className="text-lg text-smilist-muted">{t('whySubtitle')}</p>
+          <p className="text-lg text-gray">{t('whySubtitle')}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-smilist-background to-white border border-smilist-border hover:shadow-lg transition-shadow"
+              className="flex items-start space-x-4 p-6 rounded-2xl bg-gradient-to-br from-sand to-white border border-sand-light hover:shadow-lg transition-shadow"
             >
-              <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-smilist-primary to-smilist-accent flex items-center justify-center text-white">
+              <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-espresso to-espresso-light flex items-center justify-center text-white`}>
                 {feature.icon}
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-smilist-text mb-2">
+                <h3 className="text-lg font-semibold text-charcoal mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-smilist-muted leading-relaxed">{feature.description}</p>
+                <p className="text-gray leading-relaxed">{feature.description}</p>
               </div>
             </div>
           ))}

@@ -136,7 +136,7 @@ smillist-landing/
 ## Contact Information
 
 - **Phone**: 081-161-5129
-- **LINE**: @smillist
+- **LINE**: @smilist
 - **Facebook**: Smilist Dental Clinic
 - **Location**: Mueang District, Nakhon Phanom, Thailand
 

@@ -7,17 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        smilist: {
-          primary: '#1E3A8A',
-          secondary: '#7BCBFF',
-          accent: '#35D0BA',
-          gold: '#C8A24A',
-          background: '#F7FAFF',
-          surface: '#FFFFFF',
-          text: '#0F172A',
-          muted: '#64748B',
-          border: '#E2E8F0',
-        },
+        sand: 'var(--sand)',
+        'sand-light': 'var(--sand-light)',
+        surface: 'var(--surface)',
+        espresso: 'var(--espresso)',
+        'espresso-light': 'var(--espresso-light)',
+        'red-accent': 'var(--red-accent)',
+        gray: 'var(--gray)',
+        charcoal: 'var(--charcoal)',
+        white: 'var(--white)',
+        gold: 'var(--gold)',
+        sage: 'var(--sage)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

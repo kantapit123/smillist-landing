@@ -20,12 +20,12 @@ export default function Pricing() {
   }
 
   return (
-    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-smilist-background">
+    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-sand">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-smilist-gold/10 border border-smilist-gold/20 rounded-full mb-4">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-red-accent/10 border border-red-accent/20 rounded-full mb-4">
             <svg
-              className="w-4 h-4 text-smilist-gold"
+              className="w-4 h-4 text-red-accent"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -35,27 +35,27 @@ export default function Pricing() {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-sm font-semibold text-smilist-gold">
+            <span className="text-sm font-semibold text-red-accent">
               {t('pricingBadge')}
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('pricingTitle')}
           </h2>
-          <p className="text-lg text-smilist-muted">{t('pricingSubtitle')}</p>
+          <p className="text-lg text-gray">{t('pricingSubtitle')}</p>
         </div>
 
-        <div className="bg-white rounded-3xl border border-smilist-border shadow-xl p-8 md:p-10">
+        <div className="bg-white rounded-3xl border border-sand-light shadow-xl p-8 md:p-10">
           <div className="space-y-4">
             {pricingItems.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between py-4 border-b border-smilist-border last:border-0"
+                className="flex items-center justify-between py-4 border-b border-sand-light last:border-0"
               >
-                <span className="text-smilist-text font-medium">{item.service}</span>
+                <span className="text-charcoal font-medium">{item.service}</span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-smilist-muted">{t('pricingStarting')}</span>
-                  <span className="text-lg font-semibold text-smilist-primary">
+                  <span className="text-sm text-gray">{t('pricingStarting')}</span>
+                  <span className="text-lg font-semibold text-gold">
                     ฿{item.price}
                   </span>
                 </div>
@@ -63,13 +63,13 @@ export default function Pricing() {
             ))}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-smilist-border">
-            <p className="text-sm text-smilist-muted text-center mb-6">
+          <div className="mt-8 pt-6 border-t border-gold/30">
+            <p className="text-sm text-gray text-center mb-6">
               {t('pricingDisclaimer')}
             </p>
             <button
               onClick={scrollToContact}
-              className="w-full px-6 py-3 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-semibold"
+              className="w-full px-6 py-3 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-semibold"
             >
               {t('pricingConsult')}
             </button>

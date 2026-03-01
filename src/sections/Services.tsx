@@ -17,7 +17,7 @@ export default function Services() {
       ),
       title: t('service1Title'),
       description: t('service1Desc'),
-      gradient: 'from-smilist-primary to-smilist-secondary',
+      gradient: 'from-espresso to-espresso-light',
     },
     {
       icon: (
@@ -32,7 +32,7 @@ export default function Services() {
       ),
       title: t('service2Title'),
       description: t('service2Desc'),
-      gradient: 'from-smilist-accent to-smilist-secondary',
+      gradient: 'from-espresso-light to-espresso-light',
     },
     {
       icon: (
@@ -47,7 +47,7 @@ export default function Services() {
       ),
       title: t('service3Title'),
       description: t('service3Desc'),
-      gradient: 'from-smilist-primary to-smilist-accent',
+      gradient: 'from-espresso to-espresso-light',
     },
     {
       icon: (
@@ -62,7 +62,7 @@ export default function Services() {
       ),
       title: t('service4Title'),
       description: t('service4Desc'),
-      gradient: 'from-smilist-secondary to-smilist-primary',
+      gradient: 'from-espresso-light to-espresso',
     },
     {
       icon: (
@@ -77,7 +77,7 @@ export default function Services() {
       ),
       title: t('service5Title'),
       description: t('service5Desc'),
-      gradient: 'from-smilist-gold to-smilist-accent',
+      gradient: 'from-espresso-light to-espresso-light',
     },
     {
       icon: (
@@ -92,18 +92,18 @@ export default function Services() {
       ),
       title: t('service6Title'),
       description: t('service6Desc'),
-      gradient: 'from-smilist-accent to-smilist-primary',
+      gradient: 'from-espresso-light to-espresso',
     },
   ]
 
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-smilist-background">
+    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-sand">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('servicesTitle')}
           </h2>
-          <p className="text-lg text-smilist-muted max-w-2xl mx-auto">
+          <p className="text-lg text-gray max-w-2xl mx-auto">
             {t('servicesSubtitle')}
           </p>
         </div>
@@ -112,17 +112,17 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl border border-smilist-border p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white rounded-2xl border border-sand-light p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               <div
                 className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}
               >
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold text-smilist-text mb-2">
+              <h3 className="text-xl font-semibold text-charcoal mb-2">
                 {service.title}
               </h3>
-              <p className="text-smilist-muted leading-relaxed">{service.description}</p>
+              <p className="text-gray leading-relaxed">{service.description}</p>
             </div>
           ))}
         </div>

@@ -7,21 +7,21 @@ export default function Doctor() {
     <section id="doctor" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-block px-4 py-2 bg-smilist-gold/10 rounded-full mb-4">
-            <span className="text-sm font-semibold text-smilist-gold uppercase tracking-wide">
+          <div className="inline-block px-4 py-2 bg-red-accent/10 rounded-full mb-4">
+            <span className="text-xl font-semibold text-red-accent uppercase tracking-wide">
               {t('doctorTitle')}
             </span>
           </div>
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-smilist-background to-white rounded-3xl border border-smilist-border shadow-xl p-8 md:p-12">
+          <div className="bg-gradient-to-br from-sand to-white rounded-3xl border border-sand-light shadow-xl p-8 md:p-12">
             <div className="grid md:grid-cols-3 gap-8 items-center">
               {/* Doctor Portrait - Placeholder illustration */}
               <div className="md:col-span-1 flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-smilist-primary/20 to-smilist-accent/20 rounded-2xl blur-2xl" />
-                  <div className="relative w-48 h-48 rounded-2xl border-2 border-smilist-border overflow-hidden bg-smilist-background">
+                  <div className="absolute inset-0 bg-gradient-to-br from-espresso/20 to-espresso-light/20 rounded-2xl blur-2xl" />
+                  <div className="relative w-48 h-48 rounded-2xl border-2 border-sand-light overflow-hidden bg-sand">
                     <img
                       src="/images/petch1.JPG"
                       alt="แพทย์หญิงชนาภรณ์ แพงดี"
@@ -29,7 +29,7 @@ export default function Doctor() {
                     />
                   </div>
                   {/* Gold accent corner */}
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-smilist-gold rounded-full flex items-center justify-center">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-accent rounded-full flex items-center justify-center">
                     <svg
                       className="w-5 h-5 text-white"
                       fill="currentColor"
@@ -48,14 +48,14 @@ export default function Doctor() {
               {/* Doctor Info */}
               <div className="md:col-span-2 space-y-6">
                 <div>
-                  <h2 className="text-3xl font-bold text-smilist-text mb-2">
+                  <h2 className="text-3xl font-bold text-charcoal mb-2">
                     {t('doctorName')}
                   </h2>
-                  <p className="text-lg text-smilist-muted italic">
+                  <p className="text-lg text-gray italic">
                     {t('doctorNameEn')}
                   </p>
-                  <div className="inline-block mt-2 px-3 py-1 bg-smilist-primary/10 rounded-full">
-                    <p className="text-sm font-medium text-smilist-primary">
+                  <div className="inline-block mt-2 px-3 py-1 bg-espresso/10 rounded-full">
+                    <p className="text-sm font-medium text-espresso">
                       {t('doctorRole')}
                     </p>
                   </div>
@@ -64,28 +64,28 @@ export default function Doctor() {
                 {/* Credentials */}
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-smilist-accent/20 flex items-center justify-center flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-smilist-accent" />
+                    <div className="mt-1 w-5 h-5 rounded-full bg-espresso-light/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-espresso-light" />
                     </div>
-                    <p className="text-smilist-text">{t('doctorCredential1')}</p>
+                    <p className="text-charcoal">{t('doctorCredential1')}</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-smilist-accent/20 flex items-center justify-center flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-smilist-accent" />
+                    <div className="mt-1 w-5 h-5 rounded-full bg-espresso-light/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-espresso-light" />
                     </div>
-                    <p className="text-smilist-text">{t('doctorCredential2')}</p>
+                    <p className="text-charcoal">{t('doctorCredential2')}</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-smilist-accent/20 flex items-center justify-center flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-smilist-accent" />
+                    <div className="mt-1 w-5 h-5 rounded-full bg-espresso-light/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-espresso-light" />
                     </div>
-                    <p className="text-smilist-text">{t('doctorCredential3')}</p>
+                    <p className="text-charcoal">{t('doctorCredential3')}</p>
                   </div>
                 </div>
 
                 {/* Statement */}
-                <div className="pt-4 border-t border-smilist-border">
-                  <p className="text-smilist-muted italic leading-relaxed">
+                <div className="pt-4 border-t border-sand-light">
+                  <p className="text-gray italic leading-relaxed">
                     "{t('doctorStatement')}"
                   </p>
                 </div>

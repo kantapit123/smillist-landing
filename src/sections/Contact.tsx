@@ -4,19 +4,19 @@ export default function Contact() {
   const { t } = useLanguage()
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-smilist-background">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-sand">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('contactTitle')}
           </h2>
-          <p className="text-lg text-smilist-muted">{t('contactSubtitle')}</p>
+          <p className="text-lg text-gray">{t('contactSubtitle')}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left: Google Map + Address */}
           <div className="space-y-4">
-            <div className="aspect-video w-full rounded-2xl border-2 border-smilist-border overflow-hidden bg-smilist-background relative">
+            <div className="aspect-video w-full rounded-2xl border-2 border-sand-light overflow-hidden bg-sand relative">
               <iframe
                 title="Smilist Dental Clinic - Google Maps"
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d475.9212714148485!2d104.7748523!3d17.3940142!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313c0f000781c2b9%3A0xe6c70c9e68f39a76!2zU21pbGlzdCBDbGluaWMg4Liq4LmE4Lih4Lil4Li04Liq4LiV4LmM4LiE4Lil4Li04LiZ4Li04LiB!5e0!3m2!1sth!2sth!4v1772350335501!5m2!1sth!2sth"
@@ -30,17 +30,17 @@ export default function Contact() {
               />
             </div>
 
-            <div className="bg-white rounded-2xl border border-smilist-border p-5">
+            <div className="bg-white rounded-2xl border border-sand-light p-5">
               <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-xl bg-smilist-primary/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-smilist-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 rounded-xl bg-espresso/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-espresso" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-smilist-text">{t('locationAddress')}</p>
-                  <p className="text-smilist-muted text-sm mt-1">{t('locationAddressDetail')}</p>
+                  <p className="font-semibold text-charcoal">{t('locationAddress')}</p>
+                  <p className="text-gray text-sm mt-1">{t('locationAddressDetail')}</p>
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@ export default function Contact() {
               href="https://maps.app.goo.gl/XfERNpwaopbaTZD97"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-medium"
+              className="w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-medium"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -60,15 +60,15 @@ export default function Contact() {
 
           {/* Right: Contact Info + Hours */}
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl border border-smilist-border shadow-xl p-8">
-              <h3 className="text-xl font-semibold text-smilist-text mb-5">
+            <div className="bg-white rounded-2xl border border-sand-light shadow-xl p-8">
+              <h3 className="text-xl font-semibold text-charcoal mb-5">
                 {t('contactInfoTitle')}
               </h3>
 
               <div className="space-y-3">
                 <a
                   href="tel:0811615129"
-                  className="flex items-center space-x-4 p-4 bg-smilist-background rounded-xl hover:bg-smilist-primary/5 transition-colors group"
+                  className="flex items-center space-x-4 p-4 bg-sand rounded-xl hover:bg-espresso/5 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-smilist-primary/10 flex items-center justify-center group-hover:bg-smilist-primary/20 transition-colors">
                     <svg className="w-6 h-6 text-smilist-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,16 +76,16 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-smilist-muted">{t('contactPhone')}</p>
-                    <p className="font-semibold text-smilist-text">081-161-5129</p>
+                    <p className="text-sm text-gray">{t('contactPhone')}</p>
+                    <p className="font-semibold text-charcoal">081-161-5129</p>
                   </div>
                 </a>
 
                 <a
-                  href="https://line.me/R/ti/p/@smillist"
+                  href="https://line.me/R/ti/p/@smilist"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-4 p-4 bg-smilist-background rounded-xl hover:bg-smilist-accent/5 transition-colors group"
+                  className="flex items-center space-x-4 p-4 bg-sand rounded-xl hover:bg-espresso-light/5 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-smilist-accent/10 flex items-center justify-center group-hover:bg-smilist-accent/20 transition-colors">
                     <svg className="w-6 h-6 text-smilist-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -93,8 +93,8 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-smilist-muted">{t('contactLine')}</p>
-                    <p className="font-semibold text-smilist-text">@smillist</p>
+                    <p className="text-sm text-gray">{t('contactLine')}</p>
+                    <p className="font-semibold text-charcoal">@smilist</p>
                   </div>
                 </a>
 
@@ -102,7 +102,7 @@ export default function Contact() {
                   href="https://www.facebook.com/people/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B8%A5%E0%B8%B4%E0%B8%AA%E0%B8%95%E0%B9%8CSmilist/61586336439310/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-4 p-4 bg-smilist-background rounded-xl hover:bg-smilist-secondary/5 transition-colors group"
+                  className="flex items-center space-x-4 p-4 bg-sand rounded-xl hover:bg-espresso-light/5 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-smilist-secondary/10 flex items-center justify-center group-hover:bg-smilist-secondary/20 transition-colors">
                     <svg className="w-6 h-6 text-smilist-secondary" fill="currentColor" viewBox="0 0 24 24">
@@ -110,23 +110,23 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-smilist-muted">{t('contactFacebook')}</p>
-                    <p className="font-semibold text-smilist-text">Smilist Dental Clinic</p>
+                    <p className="text-sm text-gray">{t('contactFacebook')}</p>
+                    <p className="font-semibold text-charcoal">Smilist Dental Clinic</p>
                   </div>
                 </a>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-smilist-primary/5 to-smilist-accent/5 rounded-2xl border border-smilist-border p-6">
-              <h3 className="font-semibold text-smilist-text mb-3 flex items-center space-x-2">
-                <svg className="w-5 h-5 text-smilist-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-gradient-to-br bg-white rounded-2xl border border-sand-light p-6">
+              <h3 className="font-semibold text-charcoal mb-3 flex items-center space-x-2">
+                <svg className="w-5 h-5 text-espresso" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>{t('heroCardTitle')}</span>
               </h3>
               <div className="space-y-1">
-                <p className="text-smilist-text font-medium">{t('heroCardHours')}</p>
-                <p className="text-smilist-muted">{t('heroCardSunday')}</p>
+                <p className="text-charcoal font-medium">{t('heroCardHours')}</p>
+                <p className="text-gray">{t('heroCardSunday')}</p>
               </div>
             </div>
           </div>

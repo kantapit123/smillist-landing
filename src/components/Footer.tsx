@@ -11,13 +11,13 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-smilist-text text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-charcoal text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-smilist-primary to-smilist-secondary flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-espresso to-espresso-light flex items-center justify-center">
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -98,7 +98,7 @@ export default function Footer() {
                 <span>{t('footerPhone')}</span>
               </a>
               <a
-                href="https://line.me/R/ti/p/@smillist"
+                href="https://line.me/R/ti/p/@300ilvcq"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors"

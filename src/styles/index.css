@@ -2,9 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --sand: #D6D0CA;
+  --sand-light: #EBE8E4;
+  --surface: #F7F4F1;
+  --espresso: #7D684F;
+  --espresso-light: #A08A6C;
+  --red-accent: #851512;
+  --gray: #5C5652;
+  --charcoal: #393634;
+  --white: #FDFCFB;
+  --gold: #C4A882;
+  --sage: #4A7C59;
+}
+
 @layer base {
   body {
-    @apply bg-smilist-background text-smilist-text font-sans antialiased;
+    @apply bg-sand text-charcoal font-sans antialiased;
   }
 
   h1,
@@ -35,7 +49,7 @@ html {
 
 /* Glass effect utility */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(253, 252, 251, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }

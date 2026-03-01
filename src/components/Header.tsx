@@ -36,10 +36,10 @@ export default function Header() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center space-x-2 group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-smilist-primary to-smilist-secondary flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="public/smilist-logo.svg" alt="logo" width="100" height="100" ></img>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-espresso to-espresso-light flex items-center justify-center group-hover:scale-105 transition-transform">
+              <img src="public/smilist-logo.svg" alt="logo" width="50" height="50" ></img>
             </div>
-            <span className="font-semibold text-lg text-smilist-primary">
+            <span className="font-semibold text-lg text-espresso">
               Smilist Dental Clinic
             </span>
           </button>
@@ -48,31 +48,31 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => scrollToSection('services')}
-              className="text-smilist-text hover:text-smilist-primary transition-colors"
+              className="text-charcoal hover:text-espresso transition-colors"
             >
               {t('headerServices')}
             </button>
             <button
               onClick={() => scrollToSection('doctor')}
-              className="text-smilist-text hover:text-smilist-primary transition-colors"
+              className="text-charcoal hover:text-espresso transition-colors"
             >
               {t('headerDoctor')}
             </button>
             <button
               onClick={() => scrollToSection('pricing')}
-              className="text-smilist-text hover:text-smilist-primary transition-colors"
+              className="text-charcoal hover:text-espresso transition-colors"
             >
               {t('headerPricing')}
             </button>
             <button
               onClick={() => scrollToSection('reviews')}
-              className="text-smilist-text hover:text-smilist-primary transition-colors"
+              className="text-charcoal hover:text-espresso transition-colors"
             >
               {t('headerReviews')}
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="text-smilist-text hover:text-smilist-primary transition-colors"
+              className="text-charcoal hover:text-espresso transition-colors"
             >
               {t('headerContact')}
             </button>
@@ -81,12 +81,12 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center space-x-4">
             {/* Language Toggle */}
-            <div className="flex items-center space-x-1 bg-smilist-surface rounded-full p-1 border border-smilist-border">
+            <div className="flex items-center space-x-1 bg-white rounded-full p-1 border border-sand-light">
               <button
                 onClick={() => setLanguage('th')}
                 className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'th'
-                  ? 'bg-smilist-primary text-white'
-                  : 'text-smilist-muted hover:text-smilist-text'
+                  ? 'bg-espresso text-white'
+                  : 'text-gray hover:text-charcoal'
                   }`}
               >
                 TH
@@ -94,8 +94,8 @@ export default function Header() {
               <button
                 onClick={() => setLanguage('en')}
                 className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'en'
-                  ? 'bg-smilist-primary text-white'
-                  : 'text-smilist-muted hover:text-smilist-text'
+                  ? 'bg-espresso text-white'
+                  : 'text-gray hover:text-charcoal'
                   }`}
               >
                 EN
@@ -105,7 +105,7 @@ export default function Header() {
             {/* CTA Button */}
             <button
               onClick={() => scrollToSection('contact')}
-              className="hidden md:block px-6 py-2.5 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-medium shadow-lg shadow-smilist-primary/20"
+              className="hidden md:block px-6 py-2.5 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-medium shadow-lg shadow-espresso/20"
             >
               {t('headerBooking')}
             </button>
@@ -113,7 +113,7 @@ export default function Header() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-smilist-surface transition-colors"
+              className="md:hidden p-2 rounded-lg hover:bg-white transition-colors"
             >
               <svg
                 className="w-6 h-6"
@@ -143,40 +143,40 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2 border-t border-smilist-border">
+          <div className="md:hidden py-4 space-y-2 border-t border-sand-light bg-white/95 backdrop-blur-md">
             <button
               onClick={() => scrollToSection('services')}
-              className="block w-full text-left px-4 py-2 text-smilist-text hover:bg-smilist-surface rounded-lg transition-colors"
+              className="block w-full text-left px-4 py-2 text-charcoal hover:bg-white rounded-lg transition-colors"
             >
               {t('headerServices')}
             </button>
             <button
               onClick={() => scrollToSection('doctor')}
-              className="block w-full text-left px-4 py-2 text-smilist-text hover:bg-smilist-surface rounded-lg transition-colors"
+              className="block w-full text-left px-4 py-2 text-charcoal hover:bg-white rounded-lg transition-colors"
             >
               {t('headerDoctor')}
             </button>
             <button
               onClick={() => scrollToSection('pricing')}
-              className="block w-full text-left px-4 py-2 text-smilist-text hover:bg-smilist-surface rounded-lg transition-colors"
+              className="block w-full text-left px-4 py-2 text-charcoal hover:bg-white rounded-lg transition-colors"
             >
               {t('headerPricing')}
             </button>
             <button
               onClick={() => scrollToSection('reviews')}
-              className="block w-full text-left px-4 py-2 text-smilist-text hover:bg-smilist-surface rounded-lg transition-colors"
+              className="block w-full text-left px-4 py-2 text-charcoal hover:bg-white rounded-lg transition-colors"
             >
               {t('headerReviews')}
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="block w-full text-left px-4 py-2 text-smilist-text hover:bg-smilist-surface rounded-lg transition-colors"
+              className="block w-full text-left px-4 py-2 text-charcoal hover:bg-white rounded-lg transition-colors"
             >
               {t('headerContact')}
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="block w-full px-4 py-2.5 bg-smilist-primary text-white rounded-xl hover:bg-smilist-primary/90 transition-colors font-medium mt-4"
+              className="block w-full px-4 py-2.5 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-medium mt-4"
             >
               {t('headerBooking')}
             </button>

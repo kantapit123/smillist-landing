@@ -16,7 +16,7 @@ export default function FAQ() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-smilist-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-4">
             {t('faqTitle')}
           </h2>
         </div>
@@ -25,15 +25,15 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-smilist-background rounded-2xl border border-smilist-border overflow-hidden"
+              className="bg-sand rounded-2xl border border-sand-light overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white transition-colors"
               >
-                <span className="font-semibold text-smilist-text pr-4">{faq.question}</span>
+                <span className="font-semibold text-charcoal pr-4">{faq.question}</span>
                 <svg
-                  className={`w-5 h-5 text-smilist-primary flex-shrink-0 transition-transform ${
+                  className={`w-5 h-5 text-espresso flex-shrink-0 transition-transform ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -50,7 +50,7 @@ export default function FAQ() {
               </button>
               {openIndex === index && (
                 <div className="px-6 pb-5">
-                  <p className="text-smilist-muted leading-relaxed">{faq.answer}</p>
+                  <p className="text-gray leading-relaxed">{faq.answer}</p>
                 </div>
               )}
             </div>

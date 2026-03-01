@@ -23,6 +23,14 @@ export const translations = {
     heroCardQuickContact: 'ติดต่อด่วน',
     heroCardBadge: 'มาตรฐานสากล',
 
+    // Stats Strip
+    statsPatients: '500+',
+    statsPatientsLabel: 'ผู้ป่วยที่ไว้ใจ',
+    statsRating: '5.0 ★',
+    statsRatingLabel: 'คะแนนรีวิวเฉลี่ย',
+    statsYears: '5+',
+    statsYearsLabel: 'ปีประสบการณ์',
+
     // Doctor – ใช้คำที่ดูเป็นมิตรมากขึ้น
     doctorTitle: 'รู้จักคุณหมอของเรา',
     doctorName: 'ทันตแพทย์หญิงชนาภรณ์ แพงดี',
@@ -53,7 +61,6 @@ export const translations = {
     // Why Smilist – ทำให้ดูน่าเชื่อถือและอบอุ่น
     whyTitle: 'ทำไมต้องเลือก Smilist',
     whySubtitle: 'เพราะเราดูแลคุณต่างออกไป',
-    why1Title: 'สะอาดระดับพรีเมียม',
     why1Desc: 'ฆ่าเชื้อทุกชิ้น ใช้อุปกรณ์แบบใช้ครั้งเดียวทิ้ง',
     why2Title: 'อธิบายชัดเจน โปร่งใส',
     why2Desc: 'บอกทุกขั้นตอนให้เข้าใจ ไม่มีอะไรเซอร์ไพรส์',
@@ -134,7 +141,7 @@ export const translations = {
     footerClinicName: 'Smilist Dental Clinic',
     footerLocation: 'เขตเมือง นครพนม ประเทศไทย',
     footerPhone: 'โทร: 081-161-5129',
-    footerLine: 'LINE: @smillist',
+    footerLine: 'LINE: @smilist',
     footerCopyright: '© 2026 Smilist Dental Clinic. สงวนลิขสิทธิ์',
   },
 
@@ -159,6 +166,14 @@ export const translations = {
     heroCardSunday: 'Monday: Closed',
     heroCardQuickContact: 'Contact',
     heroCardBadge: 'International Standards',
+
+    // Stats Strip
+    statsPatients: '500+',
+    statsPatientsLabel: 'Patients Served',
+    statsRating: '5.0 ★',
+    statsRatingLabel: 'Average Rating',
+    statsYears: '5+',
+    statsYearsLabel: 'Years Experience',
 
     // Doctor
     doctorTitle: 'Meet Your Dentist',
@@ -190,7 +205,6 @@ export const translations = {
     // Why Smilist
     whyTitle: 'Why Choose Smilist',
     whySubtitle: 'Because we care differently',
-    why1Title: 'Premium Cleanliness',
     why1Desc: 'Full sterilization + single-use instruments',
     why2Title: 'Clear & Honest Communication',
     why2Desc: 'We explain everything—no surprises',
@@ -271,7 +285,7 @@ export const translations = {
     footerClinicName: 'Smilist Dental Clinic',
     footerLocation: 'Mueang District, Nakhon Phanom, Thailand',
     footerPhone: 'Tel: 081-161-5129',
-    footerLine: 'LINE: @smillist',
+    footerLine: 'LINE: @smilist',
     footerCopyright: '© 2026 Smilist Dental Clinic. All rights reserved.',
   },
 }
