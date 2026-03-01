@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-espresso to-espresso-light flex items-center justify-center">
                 <img
-                  src="public/smilist-logo.svg"
+                  src="/smilist-logo.svg"
                   alt="logo"
                 ></img>
               </div>

@@ -37,7 +37,7 @@ export default function Header() {
             className="flex items-center space-x-2 group"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-espresso to-espresso-light flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="public/smilist-logo.svg" alt="logo" width="50" height="50" ></img>
+              <img src="/smilist-logo.svg" alt="logo" width="50" height="50" ></img>
             </div>
             <span className="font-semibold text-lg text-espresso">
               Smilist Dental Clinic
