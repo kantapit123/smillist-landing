@@ -230,7 +230,8 @@ export default function Contact() {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://www.facebook.com/people/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B8%A5%E0%B8%B4%E0%B8%AA%E0%B8%95%E0%B9%8CSmilist/61586336439310/"
+                  target='_blank'
                   className="flex items-center space-x-4 p-4 bg-smilist-background rounded-xl hover:bg-smilist-secondary/5 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-smilist-secondary/10 flex items-center justify-center group-hover:bg-smilist-secondary/20 transition-colors">
