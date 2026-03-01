@@ -79,7 +79,7 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">{t('headerContact')}</h3>
             <div className="space-y-3">
               <a
-                href="tel:0833457812"
+                href="tel:0811615129"
                 className="flex items-center space-x-2 text-white/70 hover:text-white transition-colors"
               >
                 <svg

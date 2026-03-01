@@ -184,7 +184,7 @@ export default function Contact() {
 
               <div className="space-y-4">
                 <a
-                  href="tel:0833457812"
+                  href="tel:0811615129"
                   className="flex items-center space-x-4 p-4 bg-smilist-background rounded-xl hover:bg-smilist-primary/5 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-smilist-primary/10 flex items-center justify-center group-hover:bg-smilist-primary/20 transition-colors">
@@ -204,7 +204,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-smilist-muted">{t('contactPhone')}</p>
-                    <p className="font-semibold text-smilist-text">083-345-7812</p>
+                    <p className="font-semibold text-smilist-text">081-161-5129</p>
                   </div>
                 </a>
 

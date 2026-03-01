@@ -49,7 +49,7 @@ export default function Hero() {
                 {t('heroCtaBook')}
               </button>
               <a
-                href="tel:0833457812"
+                href="tel:0811615129"
                 className="px-8 py-4 bg-white text-smilist-primary rounded-2xl hover:bg-gray-50 transition-colors font-semibold border-2 border-smilist-primary text-center"
               >
                 {t('heroCtaCall')}
@@ -137,7 +137,7 @@ export default function Hero() {
                   </h4>
                   <div className="flex flex-col space-y-2">
                     <a
-                      href="tel:0833457812"
+                      href="tel:0811615129"
                       className="flex items-center space-x-3 p-3 bg-smilist-background rounded-xl hover:bg-smilist-primary/5 transition-colors group"
                     >
                       <div className="w-10 h-10 rounded-lg bg-smilist-primary/10 flex items-center justify-center group-hover:bg-smilist-primary/20 transition-colors">
@@ -156,7 +156,7 @@ export default function Hero() {
                         </svg>
                       </div>
                       <span className="font-semibold text-smilist-text">
-                        083-345-7812
+                        081-161-5129
                       </span>
                     </a>
                     <a
