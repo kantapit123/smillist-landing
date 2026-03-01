@@ -139,7 +139,7 @@ export const translations = {
 
     // Footer
     footerClinicName: 'Smilist Dental Clinic',
-    footerLocation: 'เขตเมือง นครพนม ประเทศไทย',
+    footerLocation: '381 21-22 ถนนนิตโย ตำบล หนองญาติ อำเภอเมืองนครพนม นครพนม 48000',
     footerPhone: 'โทร: 081-161-5129',
     footerLine: 'LINE: @smilist',
     footerCopyright: '© 2026 Smilist Dental Clinic. สงวนลิขสิทธิ์',
@@ -283,7 +283,7 @@ export const translations = {
 
     // Footer
     footerClinicName: 'Smilist Dental Clinic',
-    footerLocation: 'Mueang District, Nakhon Phanom, Thailand',
+    footerLocation: '381 21-22 Nityo Road, Nong Yat Subdistrict, Mueang Nakhon Phanom District, Nakhon Phanom Province, 48000, Thailand',
     footerPhone: 'Tel: 081-161-5129',
     footerLine: 'LINE: @smilist',
     footerCopyright: '© 2026 Smilist Dental Clinic. All rights reserved.',
