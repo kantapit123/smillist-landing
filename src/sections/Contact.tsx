@@ -19,7 +19,7 @@ export default function Contact() {
             <div className="aspect-video w-full rounded-2xl border-2 border-sand-light overflow-hidden bg-sand relative">
               <iframe
                 title="Smilist Dental Clinic - Google Maps"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d475.9212714148485!2d104.7748523!3d17.3940142!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313c0f000781c2b9%3A0xe6c70c9e68f39a76!2zU21pbGlzdCBDbGluaWMg4Liq4LmE4Lih4Lil4Li04Liq4LiV4LmM4LiE4Lil4Li04LiZ4Li04LiB!5e0!3m2!1sth!2sth!4v1772350335501!5m2!1sth!2sth"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.3697986960415!2d104.7752574!3d17.394032100000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc5de8ed6dab4d8f%3A0x2eb79a0a70eda094!2z4LiE4Lil4Li04LiZ4Li04LiB4LiX4Lix4LiZ4LiV4LiB4Lij4Lij4Lih4Liq4LmE4Lih4Lil4LmM4Lil4Li04Liq4LiV4LmMIC0gU21pbGlzdCBEZW50YWwgQ2xpbmlj!5e0!3m2!1sth!2sth!4v1776882750542!5m2!1sth!2sth"
                 width="100%"
                 height="100%"
                 style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
@@ -46,9 +46,8 @@ export default function Contact() {
             </div>
 
             <a
-              href="https://maps.app.goo.gl/XfERNpwaopbaTZD97"
+              href="https://maps.app.goo.gl/mFuM516feqqRiQDc7"
               target="_blank"
-              rel="noopener noreferrer"
               className="w-full inline-flex items-center justify-center space-x-2 px-6 py-3 bg-espresso text-white rounded-xl hover:bg-espresso/90 transition-colors font-medium"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
