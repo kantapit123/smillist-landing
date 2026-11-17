@@ -1,83 +1,36 @@
 # Smilist Dental Clinic - Landing Page
 
-Premium landing page for **Smilist Dental Clinic** located in Mueang District, Nakhon Phanom, Thailand.
+Landing page for **Smilist Dental Clinic** (คลินิกทันตกรรมสไมล์ลิสต์), Mueang Nakhon Phanom, Thailand.
+Built from the approved Claude Design canvas (`Main.dc.html`) — layout, copy and colors follow that design.
 
 ## Tech Stack
 
 - **Framework**: Vite + React 18
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: plain CSS (`src/styles/index.css`) + inline styles carried over from the design
+- **Fonts**: IBM Plex Sans Thai, Kanit, Playfair Display (Google Fonts)
 - **Deployment**: Cloudflare Pages
 
-## Features
+## Theme tokens
 
-- ✨ Premium/Luxury design aesthetic
-- 🌐 Bilingual support (Thai/English)
-- 📱 Mobile-first, fully responsive
-- ⚡ Fast load times with Vite
-- 🎨 Custom Smilist brand palette
-- 📋 Booking request form
-- 🗺️ Location information with map placeholder
-- ⭐ Reviews section
-- ❓ FAQ accordion
-- 📞 Real contact information integration
-- 🔍 SEO & AI discoverability (robots.txt, sitemap, JSON-LD)
-
-## Brand Palette
+The design's tweakable props are CSS variables in `src/styles/index.css`:
 
 ```css
-Primary (Deep Clinic Blue): #1E3A8A
-Secondary (Soft Sky): #7BCBFF
-Accent (Mint): #35D0BA
-Gold (Luxury): #C8A24A
-Background: #F7FAFF
-Surface: #FFFFFF
-Text: #0F172A
-Muted: #64748B
-Border: #E2E8F0
+--accent: #8b1e24;     /* wine red */
+--cta: #1a1a1a;        /* dark CTA band / today highlight */
+--line-green: #06c755; /* LINE buttons */
 ```
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+ and npm
-
-### Installation
-
-1. Clone the repository:
+Requires Node.js 18+ and Yarn 4 (via Corepack).
 
 ```bash
-git clone <repository-url>
-cd smillist-landing
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Start the development server:
-
-```bash
-npm run dev
-```
-
-The app will be available at `http://localhost:3000`
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-This creates an optimized build in the `dist/` directory.
-
-### Preview Production Build
-
-```bash
-npm run preview
+yarn install
+yarn dev        # http://localhost:3009
+yarn build      # type-check + production build to dist/
+yarn preview    # serve dist/ (http://localhost:4173)
+yarn lint
 ```
 
 ## Project Structure
@@ -85,65 +38,51 @@ npm run preview
 ```
 smillist-landing/
 ├── public/
-│   ├── _redirects          # Cloudflare Pages SPA routing
-│   ├── robots.txt           # Crawler rules (search + AI)
-│   ├── sitemap.xml          # Sitemap for search engines
-│   └── favicon.svg
+│   ├── img/                 # Photos: .avif / .webp / .jpg (fallback) per image
+│   ├── favicon.svg          # Tooth logo
+│   ├── apple-touch-icon.png
+│   ├── _redirects           # Cloudflare Pages SPA routing
+│   ├── robots.txt
+│   └── sitemap.xml
 ├── src/
-│   ├── components/         # Reusable components
-│   │   ├── Header.tsx
-│   │   └── Footer.tsx
-│   ├── sections/           # Page sections
-│   │   ├── Hero.tsx
-│   │   ├── Doctor.tsx
-│   │   ├── Services.tsx
-│   │   ├── WhySmilist.tsx
-│   │   ├── Pricing.tsx
-│   │   ├── Location.tsx
-│   │   ├── Reviews.tsx
-│   │   ├── FAQ.tsx
-│   │   └── Contact.tsx
-│   ├── contexts/           # React contexts
-│   │   └── LanguageContext.tsx
-│   ├── content/            # Content & translations
-│   │   └── translations.ts
-│   ├── styles/
-│   │   └── index.css
+│   ├── components/
+│   │   ├── Picture.tsx      # <picture> AVIF → WebP → JPG, lazy + async decode
+│   │   └── icons.tsx
+│   ├── lib/
+│   │   ├── hooks.ts         # useRafScroll (rAF-throttled passive scroll), useReducedMotion
+│   │   └── site.ts          # LINE / tel links, shared math helpers
+│   ├── sections/            # One file per page section, in page order (see App.tsx)
+│   ├── styles/index.css
 │   ├── App.tsx
 │   └── main.tsx
-├── index.html
-├── tailwind.config.js
-├── vite.config.ts
-└── package.json
+├── index.html               # SEO meta, Open Graph, JSON-LD
+└── vite.config.ts
 ```
 
-## Scripts
+## Placeholders waiting for clinic content
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+Search for `data-todo` — hero doctor photo (4:5), whitening / retainer starting prices,
+doctor profile photos and details, Before/After gallery (consented cases only), Google Maps embed.
 
-## SEO & AI Discoverability
+## Advertising-compliance copy (do not remove)
 
-- **robots.txt** – Allows all crawlers (Google, Bing) and common AI crawlers (GPTBot, Claude-Web, Google-Extended, PerplexityBot) so search and AI can index the site.
-- **sitemap.xml** – Lists the main URL for search engines.
-- **index.html** – Canonical URL, meta keywords, `robots` meta, and **JSON-LD** (Schema.org `Dentist`) so search engines and AI can understand the clinic’s name, address, phone, hours, services, and doctor.
+All "ภาพประกอบ…จาก AI / ไม่ใช่ผลการรักษาจริง / ไม่ใช่ภาพจากเครื่องจริง" labels,
+"ผลลัพธ์แตกต่างกันในแต่ละบุคคล", and "ราคาเริ่มต้น…ขึ้นอยู่กับการตรวจและประเมินโดยทันตแพทย์" are required
+for medical-facility advertising. Show starting prices only.
 
-**หลัง deploy:** แทนที่ `https://smilist.com` ใน `public/robots.txt`, `public/sitemap.xml` และ `index.html` (canonical, og:url, JSON-LD) ด้วยโดเมนจริงของคุณ
+## SEO
+
+- **robots.txt** / **sitemap.xml** in `public/`
+- **index.html** – Thai title/description, canonical, Open Graph (`/img/clinic_room.jpg`), JSON-LD `Dentist`
+  (address, phone, Tue–Sun 11:00–20:00)
+
+**หลัง deploy:** แทนที่ `https://smilist.com` ใน `public/robots.txt`, `public/sitemap.xml` และ `index.html` (canonical, og:url, og:image, JSON-LD) ด้วยโดเมนจริง
 
 ## Contact Information
 
+- **Address**: 381 21-22 ถนนนิตโย ต.หนองญาติ อ.เมืองนครพนม จ.นครพนม 48000
 - **Phone**: 081-161-5129
-- **LINE**: @smilist
-- **Facebook**: Smilist Dental Clinic
-- **Location**: Mueang District, Nakhon Phanom, Thailand
-
-## Deployment
-
-See [DEPLOY.md](./DEPLOY.md) for Cloudflare Pages deployment instructions.
-
-## License
-
-© 2026 Smilist Dental Clinic. All rights reserved.
+- **LINE**: @smilist (https://lin.ee/yWzM5v4)
+- **Email**: smilistdental@gmail.com
+- **Facebook / Instagram / TikTok**: Smilistdentalclinic
+- **Hours**: Tue–Sun 11:00–20:00, closed Monday
