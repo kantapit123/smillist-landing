@@ -1,55 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Design tokens — the canvas "tweak" props become CSS variables. */
 :root {
-  --sand: #D6D0CA;
-  --sand-light: #EBE8E4;
-  --surface: #F7F4F1;
-  --espresso: #7D684F;
-  --espresso-light: #A08A6C;
-  --red-accent: #851512;
-  --gray: #5C5652;
-  --charcoal: #393634;
-  --white: #FDFCFB;
-  --gold: #C4A882;
-  --sage: #4A7C59;
+  --accent: #8b1e24;
+  --cta: #1a1a1a;
+  --line-green: #06c755;
 }
 
-@layer base {
-  body {
-    @apply bg-sand text-charcoal font-sans antialiased;
-  }
+body { margin: 0; background: #ffffff; }
+html { scroll-behavior: smooth; }
+a { color: var(--accent); }
+a:hover { color: #6b161b; }
+h1, h2, h3 { font-family: 'Kanit', 'IBM Plex Sans Thai', system-ui, sans-serif; font-weight: 600; }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold;
-  }
-
-  /* Thai text: more line-height so vowels/tone marks don't overlap when wrapping */
-  html[lang='th'] {
-    line-height: 1.85;
-  }
+.page {
+  font-family: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #ffffff;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ---- Motion (verbatim from the design) ---- */
+.caret { display: inline-block; width: 3px; height: 0.9em; margin-left: 4px; vertical-align: -0.08em; background: currentColor; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.lift { transition: transform .25s ease, box-shadow .25s ease; }
+.lift:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(60, 20, 22, .10); }
+.al-mid { opacity: 0; animation: almid 6s ease-in-out infinite; }
+@keyframes almid { 0%, 12% { opacity: 0; } 36%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.al-after { opacity: 0; animation: alafter 6s ease-in-out infinite; }
+@keyframes alafter { 0%, 36% { opacity: 0; } 60%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.align-bar { transform-origin: left center; animation: alignbar 6s cubic-bezier(.45, 0, .25, 1) infinite; }
+@keyframes alignbar { 0%, 12% { transform: scaleX(0); } 60%, 88% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.btn { transition: background-color .2s ease, transform .15s ease; }
+.btn:active { transform: scale(.97); }
+input[type=range] { accent-color: #8b1e24; }
+
+/* ---- Repeated patterns pulled out of inline styles ---- */
+.wrap { max-width: 1200px; margin: 0 auto; }
+.eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .08em; color: var(--accent); }
+.sec-h2 { margin: 0; font-size: 42px; line-height: 1.25; }
+.dim { color: #8a7e7c; }
+.soft { color: #4f4645; }
+.muted { color: #6b605e; }
+
+.pill { display: flex; align-items: center; border-radius: 999px; text-decoration: none; font-weight: 600; }
+.pill-lg { min-height: 52px; padding: 0 24px; }
+.pill-md { min-height: 48px; padding: 0 22px; }
+/* .pill.x (0,2,0) beats a:hover (0,1,1), matching the design where inline colors never change on hover. */
+.pill.on-line { background: var(--line-green); color: #ffffff; }
+.pill.on-blush { background: #f6efee; color: #1a1a1a; }
+.pill.on-white { background: #ffffff; color: #1a1a1a; }
+
+.tile { border-radius: 16px; background: #f8f3f2; padding: 18px; display: flex; flex-direction: column; gap: 4px; }
+.fill-img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.story-img { position: absolute; left: 0; top: 0; width: 720px; height: 480px; display: block; }
+.step-num { font-family: 'Kanit', sans-serif; font-weight: 600; color: #a3958f; line-height: 1; }
+.price { font-family: 'Kanit', sans-serif; font-weight: 600; font-size: 34px; color: #1a1a1a; }
+.chip-note { position: absolute; left: 16px; bottom: 14px; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+.placeholder { background: #f6efee; border: 1.5px dashed #cdbdba; color: #6b605e; }
+
+@media (max-width: 860px) {
+  .xr-h2 { font-size: 34px !important; }
+  .xr-big { font-size: 24px !important; }
+  .span2 { grid-column: auto !important; }
+  .svc-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .navlinks { display: none !important; }
+  .h1 { font-size: 44px !important; }
+  .scene { height: 340px !important; flex-basis: 100% !important; }
+  /* Design had captions 220px + gap 32 + scene 340 + a 3-row rail inside the 720px sticky stage, so the
+     scene covered the chapter rail on phones. Tighter spacing + a single-row rail makes it fit (622 ≤ 624). */
+  .captions { min-height: 270px !important; }
+  .story-stage { padding: 16px 24px !important; }
+  .story-row { gap: 12px !important; }
+  .rail-btn { flex: 1 1 0 !important; min-width: 0; }
+  .story-h2 { font-size: 26px !important; }
+  /* Content-box width:90% + 40px padding overflowed the viewport on phones. */
+  .hours-card { width: auto !important; right: 21px; }
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Glass effect utility */
-.glass-effect {
-  background: rgba(253, 252, 251, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+@media (prefers-reduced-motion: reduce) {
+  .al-mid { animation: none !important; }
+  .al-after { animation: none !important; opacity: 1 !important; }
+  .align-bar { animation: none !important; transform: none !important; }
+  .caret { animation: none; }
+  .lift, .btn { transition: none; }
 }

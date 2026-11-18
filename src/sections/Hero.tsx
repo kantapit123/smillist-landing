@@ -1,186 +1,283 @@
-import { useLanguage } from '../contexts/LanguageContext'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowDownIcon, ChatIcon, ImageIcon, PhoneIcon } from '../components/icons'
+import { useReducedMotion } from '../lib/hooks'
+import { LINE_URL, TEL_LABEL, TEL_URL } from '../lib/site'
+
+const WORDS = ['จัดฟันใส', 'จัดฟันติดเครื่องมือ', 'วีเนียร์แบบฉีด', 'ฟอกสีฟัน']
+const HOLD_TICKS = 26
+
+/** Split into grapheme clusters so Thai vowels/tone marks never detach from their consonant. */
+function splitGraphemes(w: string): string[] {
+  try {
+    if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+      return Array.from(new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(w), (s) => s.segment)
+    }
+  } catch {
+    /* fall through */
+  }
+  return Array.from(w)
+}
+
+function useTypedWord(reduce: boolean): string {
+  // Mutable typing state lives in a ref; `render` bumps only when visible text changes.
+  const st = useRef({ wordIdx: 0, chars: 99, deleting: false, hold: HOLD_TICKS })
+  const [, render] = useState(0)
+
+  useEffect(() => {
+    const tick = () => {
+      const s = st.current
+      if (reduce) {
+        s.wordIdx = (s.wordIdx + 1) % WORDS.length
+        s.chars = 99
+        render((n) => n + 1)
+        return
+      }
+      const len = splitGraphemes(WORDS[s.wordIdx]).length
+      if (!s.deleting) {
+        if (s.chars < len) {
+          s.chars += 1
+          render((n) => n + 1)
+          return
+        }
+        if (s.hold > 0) {
+          s.hold -= 1
+          return
+        }
+        s.deleting = true
+        s.chars = len
+        render((n) => n + 1)
+        return
+      }
+      if (s.chars > 0) {
+        s.chars -= 1
+        render((n) => n + 1)
+        return
+      }
+      s.hold = HOLD_TICKS
+      s.deleting = false
+      s.wordIdx = (s.wordIdx + 1) % WORDS.length
+      render((n) => n + 1)
+    }
+    const id = setInterval(tick, reduce ? 2800 : 85)
+    return () => clearInterval(id)
+  }, [reduce])
+
+  const glyphs = splitGraphemes(WORDS[st.current.wordIdx])
+  return glyphs.slice(0, Math.min(st.current.chars, glyphs.length)).join('')
+}
+
+/** Weekday + minutes-since-midnight in Asia/Bangkok. */
+function bangkokClock(now: number): { wd: string; mins: number } {
+  try {
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Bangkok',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).formatToParts(new Date(now))
+    const get = (t: string) => parts.find((p) => p.type === t)?.value ?? ''
+    return { wd: get('weekday'), mins: (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10) }
+  } catch {
+    const d = new Date(now)
+    return { wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()], mins: d.getHours() * 60 + d.getMinutes() }
+  }
+}
+
+const DAY_DEFS = [
+  ['Mon', 'จ.'],
+  ['Tue', 'อ.'],
+  ['Wed', 'พ.'],
+  ['Thu', 'พฤ.'],
+  ['Fri', 'ศ.'],
+  ['Sat', 'ส.'],
+  ['Sun', 'อา.'],
+] as const
 
 export default function Hero() {
-  const { t } = useLanguage()
+  const reduce = useReducedMotion()
+  const typed = useTypedWord(reduce)
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 60000)
+    return () => clearInterval(id)
+  }, [])
+
+  // Open Tue–Sun 11:00–20:00, closed Mondays.
+  const { wd, mins } = bangkokClock(now)
+  const isMon = wd === 'Mon'
+  const isOpen = !isMon && mins >= 660 && mins < 1200
+  let statusLabel = 'เปิดอยู่ตอนนี้ · ปิด 20:00 น.'
+  if (!isOpen) {
+    if (isMon) statusLabel = 'วันนี้ปิด · เปิดพรุ่งนี้ 11:00 น.'
+    else if (mins < 660) statusLabel = 'เปิดวันนี้ 11:00 น.'
+    else if (wd === 'Sun') statusLabel = 'ปิดแล้ว · เปิดวันอังคาร 11:00 น.'
+    else statusLabel = 'ปิดแล้ว · เปิดพรุ่งนี้ 11:00 น.'
   }
 
   return (
-    <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.25]"
+    <section
+      className="wrap"
+      style={{ padding: '64px 24px 56px', display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'center' }}
+    >
+      <div style={{ flex: '1 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 22 }}>
+        <a
+          href="#contact"
           style={{
-            backgroundImage: 'url(/images/placeholder4.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
+            alignSelf: 'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            padding: '6px 14px 6px 10px',
+            border: '1px solid #E5DAD8',
+            borderRadius: 999,
+            background: '#FFFFFF',
+            color: '#1A1A1A',
+            textDecoration: 'none',
+            fontSize: 14,
           }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-espresso-light/10 via-transparent to-espresso-light/5" />
+        >
+          <span style={{ width: 9, height: 9, borderRadius: '50%', background: isOpen ? '#1F8A4C' : '#9AA8AC' }} />
+          <span style={{ fontWeight: 600 }}>{statusLabel}</span>
+          <span className="muted">ดูเวลาทำการ →</span>
+        </a>
+        <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--accent)' }}>
+          CONFIDENT SMILES · START HERE
+        </span>
+        <h1 className="h1" style={{ margin: 0, fontSize: 64, lineHeight: 1.15, letterSpacing: '-0.005em' }}>
+          ยิ้มที่มั่นใจ
+          <br />
+          <span style={{ color: 'var(--accent)' }}>เริ่มต้นที่นี่</span>
+        </h1>
+        <p
+          style={{
+            margin: 0,
+            fontFamily: "'Kanit', sans-serif",
+            fontWeight: 500,
+            fontSize: 24,
+            lineHeight: 1.4,
+            minHeight: '1.4em',
+            color: '#1A1A1A',
+          }}
+        >
+          ออกแบบรอยยิ้มด้วย{' '}
+          <span
+            style={{
+              textDecoration: 'underline',
+              textDecorationColor: 'var(--accent)',
+              textDecorationThickness: 3,
+              textUnderlineOffset: 6,
+            }}
+          >
+            {typed}
+          </span>
+          <span className="caret" style={{ color: 'var(--accent)' }} />
+        </p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+          <a className="btn pill pill-lg on-line" href={LINE_URL} style={{ gap: 10 }}>
+            <ChatIcon />
+            นัดหมายผ่าน LINE
+          </a>
+          <a className="btn pill pill-lg on-blush" href={TEL_URL} style={{ gap: 10 }}>
+            <PhoneIcon />
+            โทร {TEL_LABEL}
+          </a>
+        </div>
+
+        <a
+          href="#story"
+          style={{
+            alignSelf: 'flex-start',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            minHeight: 44,
+            color: 'var(--accent)',
+            fontWeight: 600,
+            fontSize: 15,
+            textDecoration: 'none',
+          }}
+        >
+          เลื่อนดูการรักษาแบบใกล้ ๆ
+          <ArrowDownIcon />
+        </a>
       </div>
 
-      <div className="max-w-7xl mx-auto relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Hero content */}
-          <div className="space-y-8">
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal leading-relaxed">
-              <span className="block">{t('heroTitleLine1')}</span>
-              <span className="block mt-4">{t('heroTitleLine2')}</span>
-            </h1>
-
-            <p className="text-lg text-gray max-w-xl leading-[1.85]">
-              {t('heroSubtitle')}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={scrollToContact}
-                className="px-8 py-4 bg-espresso text-white rounded-2xl hover:bg-espresso/90 transition-all font-semibold shadow-xl shadow-espresso/20 hover:shadow-2xl hover:shadow-espresso/30 hover:-translate-y-0.5"
-              >
-                {t('heroCtaBook')}
-              </button>
-              <a
-                href="tel:0811615129"
-                className="px-8 py-4 bg-white text-espresso rounded-2xl hover:bg-sand-light transition-colors font-semibold border-2 border-espresso text-center"
-              >
-                {t('heroCtaCall')}
-              </a>
-            </div>
-
-            {/* Trust indicators */}
-            {/* <div className="flex items-center space-x-6 pt-4">
-              <div className="flex items-center space-x-2">
-                <svg
-                  className="w-5 h-5 text-espresso-light"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span className="text-sm font-medium text-charcoal">
-                  5.0
-                </span>
-              </div>
-              <div className="w-px h-4 bg-sand-light" />
-              <span className="text-sm text-gray">
-                {t('heroCardBadge')}
+      <div style={{ flex: '1 1 440px', minWidth: 0, position: 'relative' }}>
+        <div
+          className="placeholder"
+          data-todo="hero-doctor-photo: ภาพคุณหมอในคลินิก สัดส่วน 4:5 (คลินิกกำลังเลือกรูป)"
+          style={{
+            aspectRatio: '4 / 5',
+            borderRadius: 28,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+            textAlign: 'center',
+            padding: 24,
+            position: 'relative',
+          }}
+        >
+          <ImageIcon />
+          <span style={{ fontWeight: 600, color: '#1A1A1A' }}>[ ภาพคุณหมอในคลินิก ]</span>
+          <span style={{ fontSize: 14 }}>ทันตแพทย์ในเสื้อกาวน์ SMILIST ยิ้มกว้าง ในห้องทำฟันสีขาวสว่าง</span>
+          <div
+            className="hours-card"
+            style={{
+              position: 'absolute',
+              left: 21,
+              width: 'min(340px, 90%)',
+              background: '#FFFFFF',
+              borderRadius: 18,
+              boxShadow: '0 18px 40px rgba(60,20,22,.14)',
+              padding: '18px 20px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+              // Design had `top: 518px` (tuned at 1440 wide, where it lands ~20px above the bottom edge);
+              // anchoring to the bottom keeps that look without overflowing on narrower screens.
+              bottom: 21,
+              color: '#1A1A1A',
+              textAlign: 'start',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+              <span style={{ fontWeight: 600, fontSize: 15 }}>เวลาทำการ</span>
+              <span className="muted" style={{ fontSize: 14 }}>
+                11:00–20:00 น.
               </span>
-            </div> */}
-          </div>
-
-          {/* Right: Premium card */}
-          <div className="lg:ml-auto">
-            <div className="relative">
-              {/* Decorative glow */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-espresso/20 to-espresso-light/20 rounded-3xl blur-2xl" />
-
-              <div className="relative bg-white rounded-2xl shadow-2xl border border-sand-light p-8 space-y-6">
-                {/* Badge */}
-                <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-gold/10 rounded-full">
-                  <svg
-                    className="w-4 h-4 text-gold"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 6 }}>
+              {DAY_DEFS.map(([k, th]) => {
+                const today = k === wd
+                const closed = k === 'Mon'
+                return (
+                  <div
+                    key={k}
+                    aria-current={today ? 'date' : undefined}
+                    style={{
+                      height: 44,
+                      borderRadius: 10,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 13,
+                      lineHeight: 1.2,
+                      background: today ? 'var(--cta)' : closed ? '#F6EFEE' : '#F8F3F2',
+                      color: today ? '#FFFFFF' : closed ? '#776B69' : '#1A1A1A',
+                      fontWeight: today ? 700 : 500,
+                    }}
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-xs font-semibold text-gold">
-                    {t('heroCardBadge')}
-                  </span>
-                </div>
-
-                {/* Opening hours */}
-                <div className="space-y-2">
-                  <h3 className="text-lg font-semibold text-charcoal flex items-center space-x-2">
-                    <svg
-                      className="w-5 h-5 text-espresso"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span>{t('heroCardTitle')}</span>
-                  </h3>
-                  <p className="text-charcoal font-medium">
-                    {t('heroCardHours')}
-                  </p>
-                  <p className="text-gray text-sm">
-                    {t('heroCardSunday')}
-                  </p>
-                </div>
-
-                <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-
-                {/* Quick contact */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-gray uppercase tracking-wide">
-                    {t('heroCardQuickContact')}
-                  </h4>
-                  <div className="flex flex-col space-y-2">
-                    <a
-                      href="tel:0811615129"
-                      className="flex items-center space-x-3 p-3 bg-sand rounded-xl hover:bg-espresso/5 transition-colors group"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-espresso/10 flex items-center justify-center group-hover:bg-espresso/20 transition-colors">
-                        <svg
-                          className="w-5 h-5 text-espresso"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                          />
-                        </svg>
-                      </div>
-                      <span className="font-semibold text-charcoal">
-                        081-161-5129
-                      </span>
-                    </a>
-                    <a
-                      href="https://line.me/R/ti/p/@300ilvcq"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-3 p-3 bg-sand rounded-xl hover:bg-espresso-light/5 transition-colors group"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-espresso-light/10 flex items-center justify-center group-hover:bg-espresso-light/20 transition-colors">
-                        <svg
-                          className="w-5 h-5 text-espresso-light"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-                        </svg>
-                      </div>
-                      <span className="font-semibold text-charcoal">
-                        @smilist
-                      </span>
-                    </a>
+                    <span>{th}</span>
+                    <span style={{ fontSize: 10 }}>{closed ? 'ปิด' : today ? 'วันนี้' : ''}</span>
                   </div>
-                </div>
-              </div>
+                )
+              })}
             </div>
           </div>
         </div>
