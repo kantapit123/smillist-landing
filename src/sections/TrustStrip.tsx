@@ -2,17 +2,41 @@ import type { ReactNode } from 'react'
 import { CalendarIcon, CardIcon, CheckCircleIcon, GlobeIcon } from '../components/icons'
 
 const ITEMS: [ReactNode, ReactNode][] = [
-  [<CheckCircleIcon />, <><strong>ตรวจปรึกษาฟรี</strong> ไม่มีค่าใช้จ่าย</>],
-  [<CardIcon />, <><strong>ผ่อนสบาย</strong> แบ่งจ่ายรายเดือนได้</>],
-  [<GlobeIcon />, <>เครื่องมือจาก<strong>สหรัฐฯ และอิตาลี</strong></>],
-  [<CalendarIcon />, <><strong>วันหยุดนักขัตฤกษ์</strong> คลินิกไม่หยุด</>],
+  [
+    <CheckCircleIcon />,
+    <>
+      <strong>ตรวจปรึกษาฟรี</strong> ไม่มีค่าใช้จ่าย
+    </>,
+  ],
+  [
+    <CardIcon />,
+    <>
+      <strong>ผ่อนสบาย</strong> แบ่งจ่ายรายเดือนได้
+    </>,
+  ],
+  [
+    <GlobeIcon />,
+    <>
+      เครื่องมือจาก<strong>สหรัฐฯ และอิตาลี</strong>
+    </>,
+  ],
+  [
+    <CalendarIcon />,
+    <>
+      <strong>วันหยุดนักขัตฤกษ์</strong> คลินิกไม่หยุด
+    </>,
+  ],
 ]
 
 export default function TrustStrip() {
   return (
     <section
       aria-label="จุดเด่นของคลินิก"
-      style={{ borderTop: '1px solid #EDE4E2', borderBottom: '1px solid #EDE4E2', background: '#FBF8F7' }}
+      style={{
+        borderTop: '1px solid #EDE4E2',
+        borderBottom: '1px solid #EDE4E2',
+        background: '#FBF8F7',
+      }}
     >
       <div
         className="wrap"

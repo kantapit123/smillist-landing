@@ -70,7 +70,9 @@ export default function Story() {
     const fit = Math.max(0.4, Math.min(1, (w - 16) / 720, (h - 16) / 480))
     const cover = Math.max(w / 720, h / 480)
     setV((prev) =>
-      Math.abs(p - prev.story) > 0.001 || Math.abs(fit - prev.fit) > 0.01 || Math.abs(cover - prev.cover) > 0.01
+      Math.abs(p - prev.story) > 0.001 ||
+      Math.abs(fit - prev.fit) > 0.01 ||
+      Math.abs(cover - prev.cover) > 0.01
         ? { story: p, fit, cover }
         : prev
     )
@@ -80,7 +82,10 @@ export default function Story() {
     const el = storyEl.current
     if (!el) return
     const r = el.getBoundingClientRect()
-    window.scrollBy({ top: r.top - HEADER_H + frac * (r.height - STAGE_H), behavior: reduce ? 'auto' : 'smooth' })
+    window.scrollBy({
+      top: r.top - HEADER_H + frac * (r.height - STAGE_H),
+      behavior: reduce ? 'auto' : 'smooth',
+    })
   }
 
   // ---- storyVals() ----
@@ -117,7 +122,9 @@ export default function Story() {
   const teethO = clamp01((zt - 0.45) / 0.3)
   // Teeth photo edges stay feathered while zooming so no rectangle edge shows; full frame once fully zoomed.
   const teethMask =
-    zt >= 0.999 ? 'none' : `radial-gradient(ellipse closest-side at 50% 50%, #000 ${r2(35 + 50 * mt)}%, transparent 100%)`
+    zt >= 0.999
+      ? 'none'
+      : `radial-gradient(ellipse closest-side at 50% 50%, #000 ${r2(35 + 50 * mt)}%, transparent 100%)`
 
   const active = p < 0.22 ? 0 : p < 0.58 ? 1 : p < 0.88 ? 2 : 3
 
@@ -127,7 +134,9 @@ export default function Story() {
     opacity: r2(opacity),
     WebkitMaskImage: teethMask,
     maskImage: teethMask,
-    transition: withOpacityTransition ? 'transform .15s linear, opacity .2s linear' : 'transform .15s linear',
+    transition: withOpacityTransition
+      ? 'transform .15s linear, opacity .2s linear'
+      : 'transform .15s linear',
   })
 
   return (
@@ -150,8 +159,21 @@ export default function Story() {
           gap: 20,
         }}
       >
-        <div className="story-row" style={{ flex: '1 1 auto', minHeight: 0, display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center' }}>
-          <div className="captions" style={{ flex: '1 1 320px', minWidth: 0, position: 'relative', minHeight: 300 }}>
+        <div
+          className="story-row"
+          style={{
+            flex: '1 1 auto',
+            minHeight: 0,
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 32,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            className="captions"
+            style={{ flex: '1 1 320px', minWidth: 0, position: 'relative', minHeight: 300 }}
+          >
             {CHAPTERS.map((c, i) => {
               const on = i === active
               return (
@@ -172,7 +194,10 @@ export default function Story() {
                   }}
                 >
                   <span className="eyebrow">{c.label}</span>
-                  <h2 className="story-h2" style={{ margin: 0, fontSize: 36, lineHeight: 1.3, fontWeight: 700 }}>
+                  <h2
+                    className="story-h2"
+                    style={{ margin: 0, fontSize: 36, lineHeight: 1.3, fontWeight: 700 }}
+                  >
                     {c.title}
                   </h2>
                   <p className="soft" style={{ margin: 0 }}>
@@ -210,8 +235,25 @@ export default function Story() {
               justifyContent: 'center',
             }}
           >
-            <div style={{ position: 'relative', flex: '0 0 auto', width: 720, height: 480, transform: `scale(${r2(fit)})` }}>
-              <div style={{ position: 'absolute', left: 0, top: 0, width: 720, height: 480, pointerEvents: 'none' }}>
+            <div
+              style={{
+                position: 'relative',
+                flex: '0 0 auto',
+                width: 720,
+                height: 480,
+                transform: `scale(${r2(fit)})`,
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  width: 720,
+                  height: 480,
+                  pointerEvents: 'none',
+                }}
+              >
                 <Picture
                   name="01_smile"
                   className="story-img"
@@ -239,7 +281,10 @@ export default function Story() {
                 />
               </div>
             </div>
-            <span className="chip-note" style={{ background: 'rgba(255,255,255,.85)', color: '#4F4645' }}>
+            <span
+              className="chip-note"
+              style={{ background: 'rgba(255,255,255,.85)', color: '#4F4645' }}
+            >
               ภาพประกอบ ไม่ใช่ผลการรักษาจริง
             </span>
           </div>
@@ -271,9 +316,23 @@ export default function Story() {
               }}
             >
               <span>{RAIL_NAMES[i]}</span>
-              <span style={{ display: 'block', width: '100%', height: 3, borderRadius: 2, background: '#EDE4E2', overflow: 'hidden' }}>
+              <span
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 3,
+                  borderRadius: 2,
+                  background: '#EDE4E2',
+                  overflow: 'hidden',
+                }}
+              >
                 <span
-                  style={{ display: 'block', height: 3, width: `${Math.round(seg(a, b) * 100)}%`, background: 'var(--accent)' }}
+                  style={{
+                    display: 'block',
+                    height: 3,
+                    width: `${Math.round(seg(a, b) * 100)}%`,
+                    background: 'var(--accent)',
+                  }}
                 />
               </span>
             </button>

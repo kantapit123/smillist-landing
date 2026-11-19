@@ -49,8 +49,21 @@ export default function Faq() {
   }
 
   return (
-    <section id="faq" className="wrap" style={{ padding: '72px 24px', display: 'flex', flexWrap: 'wrap', gap: 48 }}>
-      <div style={{ flex: '1 1 320px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 14, alignSelf: 'flex-start' }}>
+    <section
+      id="faq"
+      className="wrap"
+      style={{ padding: '72px 24px', display: 'flex', flexWrap: 'wrap', gap: 48 }}
+    >
+      <div
+        style={{
+          flex: '1 1 320px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          alignSelf: 'flex-start',
+        }}
+      >
         <span className="eyebrow">05 — คำถามพบบ่อย</span>
         <h2 className="sec-h2">
           คำถามที่คนไข้
@@ -81,7 +94,15 @@ export default function Faq() {
           {allOpen ? 'ย่อทั้งหมด' : 'เปิดดูทั้งหมด'}
         </button>
       </div>
-      <div style={{ flex: '2 1 560px', minWidth: 0, display: 'flex', flexDirection: 'column', borderTop: '1px solid #EDE4E2' }}>
+      <div
+        style={{
+          flex: '2 1 560px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          borderTop: '1px solid #EDE4E2',
+        }}
+      >
         {FAQS.map((f, i) => {
           const isOpen = !!open[i]
           const panelId = `faq-a-${i}`
@@ -109,7 +130,15 @@ export default function Faq() {
                   cursor: 'pointer',
                 }}
               >
-                <span style={{ fontSize: 14, color: '#776B69', fontWeight: 500, width: 26, flex: '0 0 auto' }}>
+                <span
+                  style={{
+                    fontSize: 14,
+                    color: '#776B69',
+                    fontWeight: 500,
+                    width: 26,
+                    flex: '0 0 auto',
+                  }}
+                >
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span style={{ flex: '1 1 auto' }}>{f.q}</span>

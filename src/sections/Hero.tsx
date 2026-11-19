@@ -10,7 +10,10 @@ const HOLD_TICKS = 26
 function splitGraphemes(w: string): string[] {
   try {
     if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-      return Array.from(new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(w), (s) => s.segment)
+      return Array.from(
+        new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(w),
+        (s) => s.segment
+      )
     }
   } catch {
     /* fall through */
@@ -77,10 +80,16 @@ function bangkokClock(now: number): { wd: string; mins: number } {
       hour12: false,
     }).formatToParts(new Date(now))
     const get = (t: string) => parts.find((p) => p.type === t)?.value ?? ''
-    return { wd: get('weekday'), mins: (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10) }
+    return {
+      wd: get('weekday'),
+      mins: (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10),
+    }
   } catch {
     const d = new Date(now)
-    return { wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()], mins: d.getHours() * 60 + d.getMinutes() }
+    return {
+      wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()],
+      mins: d.getHours() * 60 + d.getMinutes(),
+    }
   }
 }
 
@@ -119,9 +128,23 @@ export default function Hero() {
   return (
     <section
       className="wrap"
-      style={{ padding: '64px 24px 56px', display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'center' }}
+      style={{
+        padding: '64px 24px 56px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 48,
+        alignItems: 'center',
+      }}
     >
-      <div style={{ flex: '1 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 22 }}>
+      <div
+        style={{
+          flex: '1 1 520px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 22,
+        }}
+      >
         <a
           href="#contact"
           style={{
@@ -138,14 +161,26 @@ export default function Hero() {
             fontSize: 14,
           }}
         >
-          <span style={{ width: 9, height: 9, borderRadius: '50%', background: isOpen ? '#1F8A4C' : '#9AA8AC' }} />
+          <span
+            style={{
+              width: 9,
+              height: 9,
+              borderRadius: '50%',
+              background: isOpen ? '#1F8A4C' : '#9AA8AC',
+            }}
+          />
           <span style={{ fontWeight: 600 }}>{statusLabel}</span>
           <span className="muted">ดูเวลาทำการ →</span>
         </a>
-        <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--accent)' }}>
+        <span
+          style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--accent)' }}
+        >
           CONFIDENT SMILES · START HERE
         </span>
-        <h1 className="h1" style={{ margin: 0, fontSize: 64, lineHeight: 1.15, letterSpacing: '-0.005em' }}>
+        <h1
+          className="h1"
+          style={{ margin: 0, fontSize: 64, lineHeight: 1.15, letterSpacing: '-0.005em' }}
+        >
           ยิ้มที่มั่นใจ
           <br />
           <span style={{ color: 'var(--accent)' }}>เริ่มต้นที่นี่</span>
@@ -224,7 +259,9 @@ export default function Hero() {
         >
           <ImageIcon />
           <span style={{ fontWeight: 600, color: '#1A1A1A' }}>[ ภาพคุณหมอในคลินิก ]</span>
-          <span style={{ fontSize: 14 }}>ทันตแพทย์ในเสื้อกาวน์ SMILIST ยิ้มกว้าง ในห้องทำฟันสีขาวสว่าง</span>
+          <span style={{ fontSize: 14 }}>
+            ทันตแพทย์ในเสื้อกาวน์ SMILIST ยิ้มกว้าง ในห้องทำฟันสีขาวสว่าง
+          </span>
           <div
             className="hours-card"
             style={{
@@ -245,13 +282,22 @@ export default function Hero() {
               textAlign: 'start',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+              }}
+            >
               <span style={{ fontWeight: 600, fontSize: 15 }}>เวลาทำการ</span>
               <span className="muted" style={{ fontSize: 14 }}>
                 11:00–20:00 น.
               </span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 6 }}>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 6 }}
+            >
               {DAY_DEFS.map(([k, th]) => {
                 const today = k === wd
                 const closed = k === 'Mon'

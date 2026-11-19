@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 /** Read once on mount, like the original design logic. */
 export function useReducedMotion(): boolean {
   const [reduce] = useState(
-    () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    () =>
+      typeof window !== 'undefined' &&
+      !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
   )
   return reduce
 }

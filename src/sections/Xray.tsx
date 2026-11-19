@@ -50,7 +50,15 @@ export default function Xray() {
           gap: 22,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, textAlign: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            textAlign: 'center',
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '.14em', color: '#A39794' }}>
             เอกซเรย์พาโนรามาและ 3 มิติในคลินิก
           </span>
@@ -81,7 +89,9 @@ export default function Xray() {
           }}
         >
           <Picture name="01_smile" className="fill-img" />
-          <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${r2(100 - sweep)}% 0 0)` }}>
+          <div
+            style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${r2(100 - sweep)}% 0 0)` }}
+          >
             <Picture name="18_cbct_face" className="fill-img" />
           </div>
           <div
@@ -158,7 +168,16 @@ export default function Xray() {
             transition: 'opacity .35s ease, transform .35s ease',
           }}
         >
-          <p className="xr-big" style={{ margin: 0, fontFamily: "'Kanit', sans-serif", fontWeight: 600, fontSize: 34, lineHeight: 1.25 }}>
+          <p
+            className="xr-big"
+            style={{
+              margin: 0,
+              fontFamily: "'Kanit', sans-serif",
+              fontWeight: 600,
+              fontSize: 34,
+              lineHeight: 1.25,
+            }}
+          >
             "ไม่ปวด" ไม่ได้แปลว่า "ไม่ผุ"
           </p>
           <a className="btn pill pill-md on-white" href={LINE_URL} tabIndex={end > 0.5 ? 0 : -1}>
