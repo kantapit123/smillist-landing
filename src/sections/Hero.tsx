@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDownIcon, ChatIcon, ImageIcon, PhoneIcon } from '../components/icons'
+import Picture from '../components/Picture'
+import { ArrowDownIcon, ChatIcon, PhoneIcon } from '../components/icons'
 import { useReducedMotion } from '../lib/hooks'
 import { LINE_URL, TEL_LABEL, TEL_URL } from '../lib/site'
 
@@ -116,6 +117,8 @@ export default function Hero() {
   // Open Tue–Sun 11:00–20:00, closed Mondays.
   const { wd, mins } = bangkokClock(now)
   const isMon = wd === 'Mon'
+  // Hero photo follows Nakhon Phanom daylight: night (signs lit) from 18:00 to 06:00.
+  const isNight = mins < 360 || mins >= 1080
   const isOpen = !isMon && mins >= 660 && mins < 1200
   let statusLabel = 'เปิดอยู่ตอนนี้ · ปิด 20:00 น.'
   if (!isOpen) {
@@ -235,33 +238,30 @@ export default function Hero() {
             textDecoration: 'none',
           }}
         >
-          เลื่อนดูการรักษาแบบใกล้ ๆ
+          เลื่อนดูการรักษา
           <ArrowDownIcon />
         </a>
       </div>
 
       <div style={{ flex: '1 1 440px', minWidth: 0, position: 'relative' }}>
         <div
-          className="placeholder"
-          data-todo="hero-doctor-photo: ภาพคุณหมอในคลินิก สัดส่วน 4:5 (คลินิกกำลังเลือกรูป)"
+          data-todo="hero-clinic-photo: ภาพจำลอง AI เช้า/กลางคืน เปลี่ยนเป็นภาพถ่ายจริง 4:5 เมื่อคลินิกเลือกรูปแล้ว"
           style={{
             aspectRatio: '4 / 5',
             borderRadius: 28,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 10,
-            textAlign: 'center',
-            padding: 24,
+            overflow: 'hidden',
+            background: '#F6EFEE',
             position: 'relative',
           }}
         >
-          <ImageIcon />
-          <span style={{ fontWeight: 600, color: '#1A1A1A' }}>[ ภาพคุณหมอในคลินิก ]</span>
-          <span style={{ fontSize: 14 }}>
-            ทันตแพทย์ในเสื้อกาวน์ SMILIST ยิ้มกว้าง ในห้องทำฟันสีขาวสว่าง
-          </span>
+          <Picture
+            name={isNight ? 'clinic_night' : 'clinic_day'}
+            eager
+            width={1280}
+            height={1600}
+            alt={`ภาพจำลองอาคารคลินิกทันตกรรมสไมล์ลิสต์ ${isNight ? 'ตอนกลางคืน เปิดไฟป้าย' : 'ตอนเช้า'}`}
+            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+          />
           <div
             className="hours-card"
             style={{
@@ -327,6 +327,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        <span className="ai-note">ภาพจำลองจาก AI</span>
       </div>
     </section>
   )

@@ -1,8 +1,9 @@
-import { ArrowRightIcon, PinIcon } from '../components/icons'
+import { ArrowRightIcon } from '../components/icons'
 import { LINE_URL, TEL_LABEL, TEL_URL } from '../lib/site'
 
-const MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=Smilist+Dental+Clinic+Nakhon+Phanom'
+const MAPS_URL = 'https://maps.app.goo.gl/G4UX77mTpa3Dk4sL9'
+const MAPS_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.3697986960415!2d104.7752574!3d17.394032100000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc5de8ed6dab4d8f%3A0x2eb79a0a70eda094!2z4LiE4Lil4Li04LiZ4Li04LiB4LiX4Lix4LiZ4LiV4LiB4Lij4Lij4Lih4Liq4LmE4Lih4Lil4LmM4Lil4Li04Liq4LiV4LmMIC0gU21pbGlzdCBEZW50YWwgQ2xpbmlj!5e0!3m2!1sth!2sth!4v1776882750542!5m2!1sth!2sth'
 
 const infoCard = {
   border: '1px solid #EDE4E2',
@@ -38,32 +39,36 @@ export function Contact() {
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         <div
-          className="placeholder"
-          data-todo="google-maps-embed: ฝัง Google Maps ของคลินิก (ตอนนี้เป็นปุ่มค้นหาชื่อคลินิก)"
           style={{
             flex: '3 1 480px',
             minWidth: 0,
-            minHeight: 360,
-            borderRadius: 24,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
             gap: 14,
-            padding: 24,
-            textAlign: 'center',
           }}
         >
-          <span style={{ color: 'var(--accent)', display: 'flex' }}>
-            <PinIcon />
-          </span>
-          <span style={{ fontWeight: 600, color: '#1A1A1A' }}>
-            [ ฝังแผนที่ Google Maps ของคลินิกตรงนี้ ]
-          </span>
+          <iframe
+            title="แผนที่คลินิกทันตกรรมสไมล์ลิสต์ บน Google Maps"
+            src={MAPS_EMBED_URL}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            style={{
+              flex: '1 1 auto',
+              width: '100%',
+              minHeight: 360,
+              border: 0,
+              borderRadius: 24,
+              background: '#F6EFEE',
+            }}
+          />
           <a
             className="btn pill on-white"
             href={MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
+              alignSelf: 'flex-start',
               gap: 8,
               minHeight: 44,
               padding: '0 18px',

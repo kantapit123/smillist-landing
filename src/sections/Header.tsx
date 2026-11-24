@@ -69,9 +69,9 @@ export default function Header() {
           ))}
         </div>
         <a
-          className="btn pill on-line"
+          className="btn pill on-line nav-cta"
           href={LINE_URL}
-          style={{ gap: 8, minHeight: 44, padding: '0 18px', fontSize: 15 }}
+          style={{ gap: 8, minHeight: 44, padding: '0 18px', fontSize: 15, whiteSpace: 'nowrap' }}
         >
           <ChatIcon size={18} />
           นัดผ่าน LINE

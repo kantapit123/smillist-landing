@@ -80,13 +80,6 @@ export const CalendarIcon = () => (
   </Stroke>
 )
 
-export const PinIcon = () => (
-  <Stroke size={40} strokeWidth={1.6}>
-    <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-    <circle cx="12" cy="10" r="2.5" />
-  </Stroke>
-)
-
 export const SplitArrowsIcon = () => (
   <Stroke size={18} strokeWidth={2}>
     <path d="M9 6l-6 6 6 6M15 6l6 6-6 6" />

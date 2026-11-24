@@ -58,7 +58,7 @@ function AlignerCard() {
           alignItems: 'center',
         }}
       >
-        {/* 13 → 02 → 06 crossfade, 6s loop (CSS keyframes) */}
+        {/* hand → wear crossfade, 6s loop (CSS keyframes) */}
         <div
           aria-hidden="true"
           style={{
@@ -70,36 +70,26 @@ function AlignerCard() {
             background: '#EFE6E3',
           }}
         >
-          <Picture name="13_aligner_start" className="fill-img" />
+          <Picture name="aligner_hand" className="fill-img" />
           <Picture
-            name="02_teeth"
+            name="aligner_wear"
             className="fill-img al-mid"
-            style={{ animationPlayState: play }}
-          />
-          <Picture
-            name="06_aligner_after"
-            className="fill-img al-after"
             style={{ animationPlayState: play }}
           />
         </div>
         <div
-          style={{ width: '100%', maxWidth: 520, display: 'flex', alignItems: 'center', gap: 12 }}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+          }}
         >
-          <div
-            aria-hidden="true"
-            style={{
-              flex: '1 1 auto',
-              height: 4,
-              borderRadius: 2,
-              background: '#E5DAD8',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              className="align-bar"
-              style={{ height: 4, width: '100%', background: '#1A1A1A', animationPlayState: play }}
-            />
-          </div>
+          <span className="soft" style={{ fontSize: 14 }}>
+            ถาดใสถอดเข้า-ออกได้เอง
+            <span className="ai-note">ภาพประกอบจาก AI</span>
+          </span>
           <button
             className="btn"
             type="button"
@@ -122,9 +112,6 @@ function AlignerCard() {
             {paused ? <PlayIcon /> : <PauseIcon />}
           </button>
         </div>
-        <span className="soft" style={{ fontSize: 14 }}>
-          ภาพประกอบจาก AI: ฟันค่อย ๆ เคลื่อนเข้าแนวตามแผนการรักษา
-        </span>
       </div>
     </article>
   )
@@ -214,7 +201,8 @@ function BracesCard() {
         </div>
         <span className="soft" style={{ fontSize: 14, textAlign: 'center' }}>
           สียาง: <strong style={{ color: '#1A1A1A' }}>{cur.name}</strong> · คลินิกมี 108 สี
-          ถามสีมงคลวันเกิดได้ · ภาพประกอบจาก AI
+          ถามสีมงคลวันเกิดได้
+          <span className="ai-note">ภาพประกอบจาก AI</span>
         </span>
       </div>
     </article>
@@ -381,8 +369,10 @@ function VeneerCard() {
           />
         </div>
         <span style={{ fontSize: 13, color: '#CFC6C4', textAlign: 'center' }}>
-          ลากเส้นกลางเพื่อเทียบ ก่อน / หลัง · ภาพประกอบจาก AI ไม่ใช่เคสจริง ·
-          ราคาต่อซี่เมื่อทำฟันหน้า 8 ซี่
+          ลากเส้นกลางเพื่อเทียบ ก่อน / หลัง · ราคาต่อซี่เมื่อทำฟันหน้า 8 ซี่
+          <span className="ai-note" style={{ color: 'inherit' }}>
+            ภาพประกอบจาก AI ไม่ใช่เคสจริง
+          </span>
         </span>
       </div>
     </article>
@@ -469,7 +459,7 @@ export default function Services() {
                 </span>
                 {s.todo && (
                   <span className="muted" data-todo={s.todo} style={{ fontSize: 14 }}>
-                    [ ราคาเริ่มต้น ]
+                    เริ่มต้น X,XXX.- (ตัวอย่าง)
                   </span>
                 )}
                 {s.price && (
