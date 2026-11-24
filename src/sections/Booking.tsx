@@ -6,7 +6,11 @@ const STEPS = [
 
 export default function Booking() {
   return (
-    <section id="booking" className="wrap" style={{ padding: '48px 24px 72px', display: 'flex', flexDirection: 'column', gap: 36 }}>
+    <section
+      id="booking"
+      className="wrap"
+      style={{ padding: '48px 24px 72px', display: 'flex', flexDirection: 'column', gap: 36 }}
+    >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <span className="eyebrow">04 — วิธีนัดหมาย</span>
         <h2 className="sec-h2">
@@ -27,7 +31,14 @@ export default function Booking() {
           <li
             key={title}
             className="lift"
-            style={{ border: '1px solid #EDE4E2', borderRadius: 24, padding: 28, display: 'flex', flexDirection: 'column', gap: 12 }}
+            style={{
+              border: '1px solid #EDE4E2',
+              borderRadius: 24,
+              padding: 28,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+            }}
           >
             <span className="step-num" style={{ fontSize: 36 }}>
               {i + 1}

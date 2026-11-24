@@ -8,9 +8,27 @@ const STEPS = [
 
 export default function AlignerSteps() {
   return (
-    <section id="aligner-steps" style={{ background: '#FBF8F7', borderTop: '1px solid #EDE4E2', borderBottom: '1px solid #EDE4E2' }}>
-      <div className="wrap" style={{ padding: '80px 24px', display: 'flex', flexDirection: 'column', gap: 36 }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16 }}>
+    <section
+      id="aligner-steps"
+      style={{
+        background: '#FBF8F7',
+        borderTop: '1px solid #EDE4E2',
+        borderBottom: '1px solid #EDE4E2',
+      }}
+    >
+      <div
+        className="wrap"
+        style={{ padding: '80px 24px', display: 'flex', flexDirection: 'column', gap: 36 }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            gap: 16,
+          }}
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span className="eyebrow">02 — จัดฟันใส</span>
             <h2 className="sec-h2">

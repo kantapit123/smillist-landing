@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDownIcon, ChatIcon, ImageIcon, PhoneIcon } from '../components/icons'
+import Picture from '../components/Picture'
+import { ArrowDownIcon, ChatIcon, PhoneIcon } from '../components/icons'
 import { useReducedMotion } from '../lib/hooks'
 import { LINE_URL, TEL_LABEL, TEL_URL } from '../lib/site'
 
@@ -10,7 +11,10 @@ const HOLD_TICKS = 26
 function splitGraphemes(w: string): string[] {
   try {
     if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-      return Array.from(new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(w), (s) => s.segment)
+      return Array.from(
+        new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(w),
+        (s) => s.segment
+      )
     }
   } catch {
     /* fall through */
@@ -77,10 +81,16 @@ function bangkokClock(now: number): { wd: string; mins: number } {
       hour12: false,
     }).formatToParts(new Date(now))
     const get = (t: string) => parts.find((p) => p.type === t)?.value ?? ''
-    return { wd: get('weekday'), mins: (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10) }
+    return {
+      wd: get('weekday'),
+      mins: (parseInt(get('hour'), 10) % 24) * 60 + parseInt(get('minute'), 10),
+    }
   } catch {
     const d = new Date(now)
-    return { wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()], mins: d.getHours() * 60 + d.getMinutes() }
+    return {
+      wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()],
+      mins: d.getHours() * 60 + d.getMinutes(),
+    }
   }
 }
 
@@ -107,6 +117,8 @@ export default function Hero() {
   // Open Tue–Sun 11:00–20:00, closed Mondays.
   const { wd, mins } = bangkokClock(now)
   const isMon = wd === 'Mon'
+  // Hero photo follows Nakhon Phanom daylight: night (signs lit) from 18:00 to 06:00.
+  const isNight = mins < 360 || mins >= 1080
   const isOpen = !isMon && mins >= 660 && mins < 1200
   let statusLabel = 'เปิดอยู่ตอนนี้ · ปิด 20:00 น.'
   if (!isOpen) {
@@ -119,9 +131,23 @@ export default function Hero() {
   return (
     <section
       className="wrap"
-      style={{ padding: '64px 24px 56px', display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'center' }}
+      style={{
+        padding: '64px 24px 56px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 48,
+        alignItems: 'center',
+      }}
     >
-      <div style={{ flex: '1 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 22 }}>
+      <div
+        style={{
+          flex: '1 1 520px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 22,
+        }}
+      >
         <a
           href="#contact"
           style={{
@@ -138,14 +164,26 @@ export default function Hero() {
             fontSize: 14,
           }}
         >
-          <span style={{ width: 9, height: 9, borderRadius: '50%', background: isOpen ? '#1F8A4C' : '#9AA8AC' }} />
+          <span
+            style={{
+              width: 9,
+              height: 9,
+              borderRadius: '50%',
+              background: isOpen ? '#1F8A4C' : '#9AA8AC',
+            }}
+          />
           <span style={{ fontWeight: 600 }}>{statusLabel}</span>
           <span className="muted">ดูเวลาทำการ →</span>
         </a>
-        <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--accent)' }}>
+        <span
+          style={{ fontSize: 13, fontWeight: 600, letterSpacing: '.22em', color: 'var(--accent)' }}
+        >
           CONFIDENT SMILES · START HERE
         </span>
-        <h1 className="h1" style={{ margin: 0, fontSize: 64, lineHeight: 1.15, letterSpacing: '-0.005em' }}>
+        <h1
+          className="h1"
+          style={{ margin: 0, fontSize: 64, lineHeight: 1.15, letterSpacing: '-0.005em' }}
+        >
           ยิ้มที่มั่นใจ
           <br />
           <span style={{ color: 'var(--accent)' }}>เริ่มต้นที่นี่</span>
@@ -200,31 +238,30 @@ export default function Hero() {
             textDecoration: 'none',
           }}
         >
-          เลื่อนดูการรักษาแบบใกล้ ๆ
+          เลื่อนดูการรักษา
           <ArrowDownIcon />
         </a>
       </div>
 
       <div style={{ flex: '1 1 440px', minWidth: 0, position: 'relative' }}>
         <div
-          className="placeholder"
-          data-todo="hero-doctor-photo: ภาพคุณหมอในคลินิก สัดส่วน 4:5 (คลินิกกำลังเลือกรูป)"
+          data-todo="hero-clinic-photo: ภาพจำลอง AI เช้า/กลางคืน เปลี่ยนเป็นภาพถ่ายจริง 4:5 เมื่อคลินิกเลือกรูปแล้ว"
           style={{
             aspectRatio: '4 / 5',
             borderRadius: 28,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 10,
-            textAlign: 'center',
-            padding: 24,
+            overflow: 'hidden',
+            background: '#F6EFEE',
             position: 'relative',
           }}
         >
-          <ImageIcon />
-          <span style={{ fontWeight: 600, color: '#1A1A1A' }}>[ ภาพคุณหมอในคลินิก ]</span>
-          <span style={{ fontSize: 14 }}>ทันตแพทย์ในเสื้อกาวน์ SMILIST ยิ้มกว้าง ในห้องทำฟันสีขาวสว่าง</span>
+          <Picture
+            name={isNight ? 'clinic_night' : 'clinic_day'}
+            eager
+            width={1280}
+            height={1600}
+            alt={`ภาพจำลองอาคารคลินิกทันตกรรมสไมล์ลิสต์ ${isNight ? 'ตอนกลางคืน เปิดไฟป้าย' : 'ตอนเช้า'}`}
+            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+          />
           <div
             className="hours-card"
             style={{
@@ -245,13 +282,22 @@ export default function Hero() {
               textAlign: 'start',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+              }}
+            >
               <span style={{ fontWeight: 600, fontSize: 15 }}>เวลาทำการ</span>
               <span className="muted" style={{ fontSize: 14 }}>
                 11:00–20:00 น.
               </span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 6 }}>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 6 }}
+            >
               {DAY_DEFS.map(([k, th]) => {
                 const today = k === wd
                 const closed = k === 'Mon'
@@ -281,6 +327,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        <span className="ai-note">ภาพจำลองจาก AI</span>
       </div>
     </section>
   )

@@ -3,11 +3,11 @@ import Picture from '../components/Picture'
 import { useRafScroll, useReducedMotion } from '../lib/hooks'
 import { HEADER_H, LINE_URL, STAGE_H, clamp01, ease, r2, seg as segOf } from '../lib/site'
 
-// Callouts appear one after another once the scan has revealed the CT image.
-const CALLOUTS = [
-  { label: 'รากฟัน', x: 45.6, y: 32, at: 0.45 },
-  { label: 'ฟันคุดซ่อนในกระดูก', x: 71.3, y: 70.8, at: 0.51 },
-  { label: 'กระดูกขากรรไกร', x: 22, y: 84, at: 0.57 },
+// Callouts appear one after another once the scan has revealed the X-ray image.
+const CALLOUTS: { label: string; x: number; y: number; at: number; side?: 'left' }[] = [
+  { label: 'รากฟัน', x: 46, y: 57, at: 0.45 },
+  { label: 'ฟันกรามซี่ในสุด', x: 60.5, y: 69, at: 0.51 },
+  { label: 'กระดูกขากรรไกร', x: 36, y: 70, at: 0.57, side: 'left' },
 ]
 
 export default function Xray() {
@@ -22,7 +22,7 @@ export default function Xray() {
     setQ((prev) => (Math.abs(xr - prev) > 0.001 ? xr : prev))
   })
 
-  // 0–.12 smile · .12–.45 scan line reveals CT · .45–.7 callouts · .7– closing line
+  // 0–.12 face · .12–.45 scan line reveals X-ray · .45–.7 callouts · .7– closing line
   const seg = (a: number, b: number) => segOf(q, a, b)
   let sweep = ease(seg(0.12, 0.45)) * 100
   if (reduce) sweep = q > 0.12 ? 100 : 0
@@ -50,7 +50,15 @@ export default function Xray() {
           gap: 22,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, textAlign: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            textAlign: 'center',
+          }}
+        >
           <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '.14em', color: '#A39794' }}>
             เอกซเรย์พาโนรามาและ 3 มิติในคลินิก
           </span>
@@ -80,9 +88,11 @@ export default function Xray() {
             background: '#000000',
           }}
         >
-          <Picture name="01_smile" className="fill-img" />
-          <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${r2(100 - sweep)}% 0 0)` }}>
-            <Picture name="18_cbct_face" className="fill-img" />
+          <Picture name="xray_face" className="fill-img" />
+          <div
+            style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${r2(100 - sweep)}% 0 0)` }}
+          >
+            <Picture name="xray_scan" className="fill-img" />
           </div>
           <div
             style={{
@@ -104,9 +114,10 @@ export default function Xray() {
                 key={c.label}
                 style={{
                   position: 'absolute',
-                  left: `${c.x}%`,
+                  ...(c.side === 'left'
+                    ? { right: `${100 - c.x}%`, marginRight: -7, flexDirection: 'row-reverse' }
+                    : { left: `${c.x}%`, marginLeft: -7 }),
                   top: `${c.y}%`,
-                  marginLeft: -7,
                   marginTop: -7,
                   display: 'flex',
                   alignItems: 'center',
@@ -127,6 +138,7 @@ export default function Xray() {
                   }}
                 />
                 <span
+                  className="xr-label"
                   style={{
                     padding: '5px 12px',
                     borderRadius: 999,
@@ -141,10 +153,10 @@ export default function Xray() {
               </div>
             )
           })}
-          <span className="chip-note" style={{ background: 'rgba(14,14,14,.7)', color: '#CFC6C4' }}>
-            ภาพจำลองแบบ CT 3 มิติ จาก AI ไม่ใช่ภาพจากเครื่องจริง
-          </span>
         </div>
+        <span className="ai-note" style={{ color: '#A39794', marginTop: -16 }}>
+          ภาพจำลองเอกซเรย์จาก AI ไม่ใช่ภาพจากเครื่องจริง
+        </span>
         <div
           style={{
             display: 'flex',
@@ -158,7 +170,16 @@ export default function Xray() {
             transition: 'opacity .35s ease, transform .35s ease',
           }}
         >
-          <p className="xr-big" style={{ margin: 0, fontFamily: "'Kanit', sans-serif", fontWeight: 600, fontSize: 34, lineHeight: 1.25 }}>
+          <p
+            className="xr-big"
+            style={{
+              margin: 0,
+              fontFamily: "'Kanit', sans-serif",
+              fontWeight: 600,
+              fontSize: 34,
+              lineHeight: 1.25,
+            }}
+          >
             "ไม่ปวด" ไม่ได้แปลว่า "ไม่ผุ"
           </p>
           <a className="btn pill pill-md on-white" href={LINE_URL} tabIndex={end > 0.5 ? 0 : -1}>

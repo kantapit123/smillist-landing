@@ -7,7 +7,14 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
 }
 
 /** AVIF → WebP → JPG fallback. Every image on this page sits below the hero, so lazy by default. */
-export default function Picture({ name, alt = '', width = 1536, height = 1024, eager, ...rest }: Props) {
+export default function Picture({
+  name,
+  alt = '',
+  width = 1536,
+  height = 1024,
+  eager,
+  ...rest
+}: Props) {
   return (
     <picture>
       <source type="image/avif" srcSet={`/img/${name}.avif`} />

@@ -51,7 +51,18 @@ On the build settings page, enter the following:
 
 If you need any environment variables, add them in the **Environment Variables** section.
 
-For this project, no environment variables are required.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `VITE_GOOGLE_MAPS_API_KEY` | No | Shows live Google Maps reviews in the About section. Without it, only a link to the reviews is shown. |
+
+The key is public in the built JavaScript, so restrict it in Google Cloud Console:
+
+1. Enable **Maps JavaScript API** and **Places API (New)** (billing must be on).
+2. Application restrictions: **Websites**, listing only the production domain (and `http://localhost:5173/*` for development).
+3. API restrictions: only the two APIs above.
+4. Set a daily quota. Reviews bill as Place Details Enterprise + Atmosphere: 1,000 free requests per month, then about $25 per 1,000.
+
+For local development, put it in `.env.local` (ignored by git). Rebuild after changing the value.
 
 ### 5. Deploy
 

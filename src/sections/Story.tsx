@@ -1,28 +1,12 @@
-import { useRef, useState, type CSSProperties } from 'react'
+import { useRef, useState } from 'react'
 import Picture from '../components/Picture'
 import { useRafScroll, useReducedMotion } from '../lib/hooks'
-import { HEADER_H, LINE_URL, STAGE_H, clamp01, ease, r2, seg as segOf } from '../lib/site'
-
-/*
- * Scroll-driven zoom: smile (01) → teeth (02) → braces 07→08→06 → denture 10→11 → zoom out to booking (12).
- * Formulas are carried over unchanged from the design's storyVals()/measure().
- * The design's div-drawn 3D teeth model was always fully covered by the photo layer (photoO = 1),
- * so it is not rendered here.
- */
-
-// Zoom ratio between the smile photo (01) and the close-up teeth photo (02).
-const RATIO = 3.97
-// The mouth in 01 is ~5.4× wider than the mouth in 12 (booking shot).
-const BOOK = 5.4
-// Focal points (px in the 720×480 photo frame).
-const SMILE_O = { x: 361.9, y: 221.3 }
-const TEETH_O = { x: 374.1, y: 248.4 }
-const BOOK_O = { x: 372.2, y: 204.8 }
+import { HEADER_H, LINE_URL, STAGE_H, clamp01, r2, seg as segOf } from '../lib/site'
 
 const CHAPTERS = [
   {
     label: '01 — เริ่มจากรอยยิ้ม',
-    title: 'เลื่อนลง แล้วซูมเข้าไปดูฟันกัน',
+    title: 'เลื่อนลง แล้วดูว่าเราดูแลรอยยิ้มอย่างไร',
     body: 'ดูว่าเหล็กดัดฟันกับฟันปลอมทำงานอย่างไร ก่อนตัดสินใจรักษา',
   },
   {
@@ -44,98 +28,54 @@ const CHAPTERS = [
 
 // [from, to, jump target] per chapter, plus rail labels.
 const STOPS: [number, number, number][] = [
-  [0, 0.22, 0],
-  [0.22, 0.58, 0.4],
-  [0.58, 0.88, 0.78],
-  [0.88, 1, 0.97],
+  [0, 0.25, 0],
+  [0.25, 0.5, 0.375],
+  [0.5, 0.75, 0.625],
+  [0.75, 1, 0.97],
 ]
+const SCENES = ['story_smile', 'story_braces', 'story_denture', 'story_booking']
+// Half-width of the crossfade around each chapter boundary.
+const FADE = 0.04
 const RAIL_NAMES = ['รอยยิ้ม', 'จัดฟัน', 'ฟันปลอม', 'นัดตรวจ']
-
-type View = { story: number; fit: number; cover: number }
 
 export default function Story() {
   const reduce = useReducedMotion()
   const storyEl = useRef<HTMLElement>(null)
-  const sceneEl = useRef<HTMLDivElement>(null)
-  const [v, setV] = useState<View>({ story: 0, fit: 1, cover: 1 })
+  const [p, setP] = useState(0)
 
   useRafScroll(() => {
     const el = storyEl.current
     if (!el) return
     const r = el.getBoundingClientRect()
     const span = Math.max(1, r.height - STAGE_H)
-    const p = clamp01((HEADER_H - r.top) / span)
-    const w = sceneEl.current ? sceneEl.current.clientWidth : 760
-    const h = sceneEl.current ? sceneEl.current.clientHeight : 520
-    const fit = Math.max(0.4, Math.min(1, (w - 16) / 720, (h - 16) / 480))
-    const cover = Math.max(w / 720, h / 480)
-    setV((prev) =>
-      Math.abs(p - prev.story) > 0.001 || Math.abs(fit - prev.fit) > 0.01 || Math.abs(cover - prev.cover) > 0.01
-        ? { story: p, fit, cover }
-        : prev
-    )
+    const next = clamp01((HEADER_H - r.top) / span)
+    setP((prev) => (Math.abs(next - prev) > 0.001 ? next : prev))
   })
 
   const jump = (frac: number) => {
     const el = storyEl.current
     if (!el) return
     const r = el.getBoundingClientRect()
-    window.scrollBy({ top: r.top - HEADER_H + frac * (r.height - STAGE_H), behavior: reduce ? 'auto' : 'smooth' })
+    window.scrollBy({
+      top: r.top - HEADER_H + frac * (r.height - STAGE_H),
+      behavior: reduce ? 'auto' : 'smooth',
+    })
   }
 
-  // ---- storyVals() ----
-  const p = v.story
-  const fit = v.fit
   const seg = (a: number, b: number) => segOf(p, a, b)
-
-  // Chapters: 0–.22 zoom in (01→02) · .22–.58 braces (07→08→06) · .58–.88 denture (10→11) · .88–1 zoom out → 12
-  let zt = ease(seg(0.02, 0.17)) - ease(seg(0.88, 0.93))
-  const brOff = 1 - seg(0.88, 0.9)
-  const brA = seg(0.25, 0.31) * brOff
-  const brB = seg(0.38, 0.46) * brOff
-  const brC = seg(0.5, 0.55) * brOff
-  const dnA = seg(0.62, 0.68) * brOff
-  const dnB = seg(0.74, 0.81) * brOff
-  let zo = ease(seg(0.93, 0.995))
-  let bookO = seg(0.93, 0.955)
-  if (reduce) {
-    zt = p < 0.2 || p > 0.88 ? 0 : 1
-    zo = p > 0.93 ? 1 : 0
-    bookO = zo
+  const active = p < 0.25 ? 0 : p < 0.5 ? 1 : p < 0.75 ? 2 : 3
+  const sceneOpacity = (i: number) => {
+    if (i === 0) return 1
+    const at = STOPS[i][0]
+    return reduce ? (active >= i ? 1 : 0) : seg(at - FADE, at + FADE)
   }
-  zt = clamp01(zt)
-  const Z = Math.pow(RATIO, zt)
-  const coverK = (v.cover || 1) / (fit || 1)
-  const ax = SMILE_O.x + (TEETH_O.x - SMILE_O.x) * zt
-  const ay = SMILE_O.y + (TEETH_O.y - SMILE_O.y) * zt
-  const cx = ax
-  const S = Math.pow(BOOK, 1 - zo)
-  const smileTf = `translate(${r2(cx - SMILE_O.x)}px, ${r2(ay - SMILE_O.y)}px) scale(${r2(Z * coverK * (S / BOOK))})`
-  const bookTf = `translate(${r2(SMILE_O.x - BOOK_O.x)}px, ${r2(SMILE_O.y - BOOK_O.y)}px) scale(${r2(S * coverK)})`
-  const teethTf = `translate(${r2(cx - TEETH_O.x)}px, ${r2(ay - TEETH_O.y)}px) scale(${r2((Z / RATIO) * coverK)})`
-  const mt = clamp01((zt - 0.7) / 0.3)
-  const teethO = clamp01((zt - 0.45) / 0.3)
-  // Teeth photo edges stay feathered while zooming so no rectangle edge shows; full frame once fully zoomed.
-  const teethMask =
-    zt >= 0.999 ? 'none' : `radial-gradient(ellipse closest-side at 50% 50%, #000 ${r2(35 + 50 * mt)}%, transparent 100%)`
-
-  const active = p < 0.22 ? 0 : p < 0.58 ? 1 : p < 0.88 ? 2 : 3
-
-  const teethLayer = (opacity: number, withOpacityTransition = true): CSSProperties => ({
-    transformOrigin: `${TEETH_O.x}px ${TEETH_O.y}px`,
-    transform: teethTf,
-    opacity: r2(opacity),
-    WebkitMaskImage: teethMask,
-    maskImage: teethMask,
-    transition: withOpacityTransition ? 'transform .15s linear, opacity .2s linear' : 'transform .15s linear',
-  })
 
   return (
     <section
       id="story"
       ref={storyEl}
-      aria-label="ซูมเข้าไปดูการรักษา: จัดฟันติดเครื่องมือและฟันปลอม"
-      style={{ position: 'relative', height: 3400, borderBottom: '1px solid #EDE4E2' }}
+      aria-label="การรักษา: จัดฟันติดเครื่องมือและฟันปลอม"
+      style={{ position: 'relative', height: 2800, borderBottom: '1px solid #EDE4E2' }}
     >
       <div
         className="wrap story-stage"
@@ -150,8 +90,21 @@ export default function Story() {
           gap: 20,
         }}
       >
-        <div className="story-row" style={{ flex: '1 1 auto', minHeight: 0, display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center' }}>
-          <div className="captions" style={{ flex: '1 1 320px', minWidth: 0, position: 'relative', minHeight: 300 }}>
+        <div
+          className="story-row"
+          style={{
+            flex: '1 1 auto',
+            minHeight: 0,
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 32,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            className="captions"
+            style={{ flex: '1 1 320px', minWidth: 0, position: 'relative', minHeight: 300 }}
+          >
             {CHAPTERS.map((c, i) => {
               const on = i === active
               return (
@@ -172,7 +125,10 @@ export default function Story() {
                   }}
                 >
                   <span className="eyebrow">{c.label}</span>
-                  <h2 className="story-h2" style={{ margin: 0, fontSize: 36, lineHeight: 1.3, fontWeight: 700 }}>
+                  <h2
+                    className="story-h2"
+                    style={{ margin: 0, fontSize: 36, lineHeight: 1.3, fontWeight: 700 }}
+                  >
                     {c.title}
                   </h2>
                   <p className="soft" style={{ margin: 0 }}>
@@ -193,59 +149,41 @@ export default function Story() {
             })}
           </div>
 
-          <div
-            className="scene"
-            ref={sceneEl}
-            aria-hidden="true"
-            style={{
-              position: 'relative',
-              flex: '2 1 520px',
-              minWidth: 0,
-              height: 520,
-              borderRadius: 32,
-              background: '#EDEDEB',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <div style={{ position: 'relative', flex: '0 0 auto', width: 720, height: 480, transform: `scale(${r2(fit)})` }}>
-              <div style={{ position: 'absolute', left: 0, top: 0, width: 720, height: 480, pointerEvents: 'none' }}>
+          <div className="scene-col" style={{ flex: '2 1 520px', minWidth: 0 }}>
+            <div
+              className="scene"
+              aria-hidden="true"
+              style={{
+                position: 'relative',
+                height: 520,
+                borderRadius: 32,
+                background: '#EDEDEB',
+                overflow: 'hidden',
+              }}
+            >
+              {SCENES.map((name, i) => (
                 <Picture
-                  name="01_smile"
-                  className="story-img"
+                  key={name}
+                  name={name}
+                  className="fill-img"
                   style={{
-                    transformOrigin: `${SMILE_O.x}px ${SMILE_O.y}px`,
-                    transform: smileTf,
-                    transition: 'transform .15s linear',
-                  }}
-                />
-                <Picture name="02_teeth" className="story-img" style={teethLayer(teethO, false)} />
-                <Picture name="07_braces_on" className="story-img" style={teethLayer(brA)} />
-                <Picture name="08_braces_done" className="story-img" style={teethLayer(brB)} />
-                <Picture name="06_aligner_after" className="story-img" style={teethLayer(brC)} />
-                <Picture name="10_denture_gap" className="story-img" style={teethLayer(dnA)} />
-                <Picture name="11_denture_in" className="story-img" style={teethLayer(dnB)} />
-                <Picture
-                  name="12_booking"
-                  className="story-img"
-                  style={{
-                    transformOrigin: `${BOOK_O.x}px ${BOOK_O.y}px`,
-                    transform: bookTf,
-                    opacity: r2(bookO),
+                    opacity: r2(sceneOpacity(i)),
+                    transform: reduce
+                      ? 'none'
+                      : `scale(${r2(1.06 - 0.06 * seg(STOPS[i][0], STOPS[i][1]))})`,
                     transition: 'transform .15s linear, opacity .2s linear',
                   }}
                 />
-              </div>
+              ))}
             </div>
-            <span className="chip-note" style={{ background: 'rgba(255,255,255,.85)', color: '#4F4645' }}>
-              ภาพประกอบ ไม่ใช่ผลการรักษาจริง
-            </span>
+            <span className="ai-note">ภาพประกอบ ไม่ใช่ผลการรักษาจริง</span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
+        <div
+          className="story-rail"
+          style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}
+        >
           {STOPS.map(([a, b, to], i) => (
             <button
               key={RAIL_NAMES[i]}
@@ -271,15 +209,30 @@ export default function Story() {
               }}
             >
               <span>{RAIL_NAMES[i]}</span>
-              <span style={{ display: 'block', width: '100%', height: 3, borderRadius: 2, background: '#EDE4E2', overflow: 'hidden' }}>
+              <span
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 3,
+                  borderRadius: 2,
+                  background: '#EDE4E2',
+                  overflow: 'hidden',
+                }}
+              >
                 <span
-                  style={{ display: 'block', height: 3, width: `${Math.round(seg(a, b) * 100)}%`, background: 'var(--accent)' }}
+                  style={{
+                    display: 'block',
+                    height: 3,
+                    width: `${Math.round(seg(a, b) * 100)}%`,
+                    background: 'var(--accent)',
+                  }}
                 />
               </span>
             </button>
           ))}
           <a
             href="#aligner-steps"
+            className="story-skip"
             style={{
               flex: '0 0 auto',
               display: 'flex',
