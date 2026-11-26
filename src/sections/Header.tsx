@@ -3,13 +3,17 @@ import { LINE_URL } from '../lib/site'
 
 const LINKS = [
   ['#services', 'บริการ'],
+  ['/prices', 'ราคา'],
   ['#story', 'ดูการรักษา'],
   ['#about', 'เกี่ยวกับเรา'],
   ['#faq', 'คำถามพบบ่อย'],
   ['#contact', 'แผนที่ & ติดต่อ'],
 ] as const
 
-export default function Header() {
+export default function Header({ home }: { home: boolean }) {
+  // On service pages the section anchors live on the home page.
+  const base = home ? '' : '/'
+
   return (
     <header
       style={{
@@ -34,7 +38,7 @@ export default function Header() {
         }}
       >
         <a
-          href="#top"
+          href={home ? '#top' : '/'}
           aria-label="Smilist Dental Clinic หน้าแรก"
           style={{
             display: 'flex',
@@ -63,7 +67,11 @@ export default function Header() {
         </a>
         <div className="navlinks" style={{ display: 'flex', gap: 26, fontSize: 15 }}>
           {LINKS.map(([href, label]) => (
-            <a key={href} href={href} style={{ color: '#1A1A1A', textDecoration: 'none' }}>
+            <a
+              key={href}
+              href={href.startsWith('#') ? base + href : href}
+              style={{ color: '#1A1A1A', textDecoration: 'none' }}
+            >
               {label}
             </a>
           ))}

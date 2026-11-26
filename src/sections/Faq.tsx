@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { MinusIcon, PlusIcon } from '../components/icons'
 
 const FAQS = [
@@ -36,16 +36,28 @@ const FAQS = [
   },
 ]
 
-export default function Faq() {
+type Props = { items?: { q: string; a: string }[]; eyebrow?: string; heading?: ReactNode }
+
+export default function Faq({
+  items = FAQS,
+  eyebrow = '05 — คำถามพบบ่อย',
+  heading = (
+    <>
+      คำถามที่คนไข้
+      <br />
+      ถามบ่อย
+    </>
+  ),
+}: Props) {
   const [open, setOpen] = useState<Record<number, boolean>>({ 0: true })
-  const allOpen = FAQS.every((_, i) => open[i])
+  const allOpen = items.every((_, i) => open[i])
 
   const toggleAll = () => {
     if (allOpen) {
       setOpen({})
       return
     }
-    setOpen(Object.fromEntries(FAQS.map((_, i) => [i, true])))
+    setOpen(Object.fromEntries(items.map((_, i) => [i, true])))
   }
 
   return (
@@ -64,12 +76,8 @@ export default function Faq() {
           alignSelf: 'flex-start',
         }}
       >
-        <span className="eyebrow">05 — คำถามพบบ่อย</span>
-        <h2 className="sec-h2">
-          คำถามที่คนไข้
-          <br />
-          ถามบ่อย
-        </h2>
+        <span className="eyebrow">{eyebrow}</span>
+        <h2 className="sec-h2">{heading}</h2>
         <p className="soft" style={{ margin: 0 }}>
           ไม่เจอคำตอบที่ต้องการ ทักถามคุณหมอทาง LINE @smilist ได้เลย
         </p>
@@ -103,7 +111,7 @@ export default function Faq() {
           borderTop: '1px solid #EDE4E2',
         }}
       >
-        {FAQS.map((f, i) => {
+        {items.map((f, i) => {
           const isOpen = !!open[i]
           const panelId = `faq-a-${i}`
           return (

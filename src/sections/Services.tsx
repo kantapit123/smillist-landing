@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import Picture from '../components/Picture'
 import { PauseIcon, PlayIcon, SplitArrowsIcon } from '../components/icons'
+import { SERVICES } from '../content/services'
 import { LINE_URL } from '../lib/site'
+
+const detailLink = { minHeight: 44, padding: '0 18px', fontSize: 15 } as const
 
 const card = {
   border: '1px solid #EDE4E2',
@@ -483,6 +486,19 @@ export default function Services() {
         <span>สแกนฟัน 3 มิติ · เอกซเรย์พาโนรามาและ 3 มิติในคลินิก · ออกแบบรอยยิ้มดิจิทัล</span>
         <span>ผลลัพธ์แตกต่างกันในแต่ละบุคคล</span>
       </div>
+      <nav
+        aria-label="อ่านรายละเอียดแต่ละการรักษา"
+        style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}
+      >
+        <span className="soft" style={{ fontWeight: 600 }}>
+          อ่านรายละเอียด:
+        </span>
+        {SERVICES.map((s) => (
+          <a key={s.path} className="btn pill on-blush" href={s.path} style={detailLink}>
+            {s.name}
+          </a>
+        ))}
+      </nav>
     </section>
   )
 }

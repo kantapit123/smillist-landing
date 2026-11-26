@@ -77,8 +77,13 @@ for medical-facility advertising. Show starting prices only.
   LINE/Facebook previews see the full content without running JavaScript. `src/main.tsx` hydrates it.
   Keep the first render deterministic: anything that depends on the clock, `window` or user settings
   must be set in `useEffect` (see the opening-hours badge in `Hero.tsx`), or hydration will mismatch.
+- **Pages**: `/` plus service pages `/clear-aligners`, `/braces`, `/veneers`, `/dentures`, `/prices`.
+  Their copy lives in `src/content/services.ts` (lines marked `// review:` are general dental
+  knowledge waiting for the dentist's sign-off). `src/routes.ts` lists the pages; the prerender writes
+  `dist/<page>.html` (Cloudflare Pages serves it at `/<page>`), per-page title/description/canonical,
+  BreadcrumbList + FAQPage JSON-LD, and generates `dist/sitemap.xml` from the same list.
 - **404**: `public/404.html` (noindex). There is no SPA fallback, so unknown URLs return a real 404.
-- **robots.txt** / **sitemap.xml** in `public/`
+- **robots.txt** in `public/`; **sitemap.xml** is generated at build time
 - **index.html** – Thai title/description, canonical `https://smilistdental.com/`, Open Graph
   (`/img/clinic_room.jpg`), JSON-LD `Dentist` (address, geo, phone, Tue–Sun 11:00–20:00)
 

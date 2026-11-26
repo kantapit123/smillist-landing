@@ -1,9 +1,21 @@
 import { ChatIcon } from '../components/icons'
+import { SERVICES } from '../content/services'
 import { LINE_URL } from '../lib/site'
 
 export function Footer() {
   return (
     <footer style={{ borderTop: '1px solid #EDE4E2' }}>
+      <nav
+        aria-label="บริการของคลินิก"
+        className="wrap"
+        style={{ padding: '28px 24px 0', display: 'flex', flexWrap: 'wrap', gap: '8px 24px' }}
+      >
+        {SERVICES.map((s) => (
+          <a key={s.path} href={s.path} style={{ color: '#1A1A1A', fontSize: 15 }}>
+            {s.name} นครพนม
+          </a>
+        ))}
+      </nav>
       <div
         className="wrap muted"
         style={{
