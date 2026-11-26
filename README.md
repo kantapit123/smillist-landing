@@ -87,6 +87,11 @@ for medical-facility advertising. Show starting prices only.
   round crop stays red) plus `favicon.ico` (16/32/48), `icon-192.png`, `icon-512.png` (JSON-LD logo) and
   `apple-touch-icon.png`. Home shares `img/og-home.jpg` (1200×630 crop of `clinic_day`); service pages
   share their own hero image (set in `scripts/prerender.mjs`).
+- **AEO (AI answer engines)**: `robots.txt` names the current AI/search crawlers (all allowed).
+  The home JSON-LD `Dentist` (`@id` `#clinic`) carries `areaServed`, `knowsAbout`, a Google Maps
+  `sameAs`, and `makesOffer` generated from `OFFERS` in `src/content/services.ts`. The build also
+  writes `dist/llms.txt` from the same data. Clinic facts (address, hours, phone) are repeated in
+  `index.html`, `About.tsx`, `Contact.tsx` and `scripts/prerender.mjs`, so update them together.
 - **robots.txt** in `public/`; **sitemap.xml** is generated at build time
 - **index.html** – Thai title/description, canonical `https://smilistdental.com/`, Open Graph
   (`/img/clinic_room.jpg`), JSON-LD `Dentist` (address, geo, phone, Tue–Sun 11:00–20:00)
