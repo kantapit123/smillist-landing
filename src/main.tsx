@@ -6,7 +6,7 @@ import './styles/index.css'
 const root = document.getElementById('root')!
 const app = (
   <React.StrictMode>
-    <App />
+    <App path={location.pathname} />
   </React.StrictMode>
 )
 

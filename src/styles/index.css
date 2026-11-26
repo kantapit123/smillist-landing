@@ -167,6 +167,34 @@ h3 {
   font-size: 34px;
   color: #1a1a1a;
 }
+/* Service pages: comparison / price tables. Wide tables scroll inside their box on phones. */
+.table-scroll {
+  overflow-x: auto;
+}
+.svc-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.svc-table th,
+.svc-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ede4e2;
+}
+.svc-table thead th {
+  background: #f8f3f2;
+  font-weight: 600;
+}
+.svc-table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.svc-table td {
+  color: #4f4645;
+}
 /* AI-image disclosure: tiny caption under the picture. */
 .ai-note {
   display: block;

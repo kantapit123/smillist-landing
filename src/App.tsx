@@ -10,23 +10,33 @@ import Booking from './sections/Booking'
 import Faq from './sections/Faq'
 import { Contact, CtaBand } from './sections/Contact'
 import { Footer, FloatingLine } from './sections/Footer'
+import ServicePage from './pages/ServicePage'
+import { findPage } from './routes'
 
-export default function App() {
+export default function App({ path }: { path: string }) {
+  const { service } = findPage(path)
+
   return (
     <div className="page">
-      <Header />
+      <Header home={!service} />
       <main id="top">
-        <Hero />
-        <TrustStrip />
-        <Story />
-        <Services />
-        <AlignerSteps />
-        <Xray />
-        <About />
-        <Booking />
-        <Faq />
-        <Contact />
-        <CtaBand />
+        {service ? (
+          <ServicePage s={service} />
+        ) : (
+          <>
+            <Hero />
+            <TrustStrip />
+            <Story />
+            <Services />
+            <AlignerSteps />
+            <Xray />
+            <About />
+            <Booking />
+            <Faq />
+            <Contact />
+            <CtaBand />
+          </>
+        )}
       </main>
       <Footer />
       <FloatingLine />
