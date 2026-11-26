@@ -139,11 +139,12 @@ export default function About() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 220px), 1fr))',
             gap: 16,
           }}
         >
-          {DOCTORS.map((d) => (
+          {/* Placeholder profiles (todo) stay hidden on the live site until the clinic sends real details. */}
+          {DOCTORS.filter((d) => !d.todo).map((d) => (
             <div
               key={d.nick}
               data-todo={

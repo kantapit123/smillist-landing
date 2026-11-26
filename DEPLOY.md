@@ -82,18 +82,20 @@ To add a custom domain:
 1. Go to your project in Cloudflare Pages
 2. Click on the **Custom domains** tab
 3. Click **Set up a custom domain**
-4. Enter your domain (e.g., `www.smilist.com`)
+4. Enter your domain (`smilistdental.com`)
 5. Follow the DNS configuration instructions
 
-## SPA Routing Configuration
+## Routing and 404
 
-The project includes a `public/_redirects` file with the following content:
+The site is a single prerendered page. `public/404.html` makes Cloudflare Pages answer unknown paths
+with a real HTTP 404 instead of the SPA fallback. Do not add a `/* /index.html 200` rule to
+`_redirects`: it turns every typo URL into a duplicate of the home page ("soft 404") for Google.
 
-```
-/* /index.html 200
-```
+## Domain
 
-This ensures that all routes are handled by the React Router (client-side routing) and prevents 404 errors on page refresh.
+Production is `https://smilistdental.com` (canonical, sitemap, Open Graph and JSON-LD all use it).
+Add `www.smilistdental.com` as a second custom domain (or a proxied DNS record) and a Cloudflare
+Redirect Rule `www.smilistdental.com/*` → `https://smilistdental.com/${1}` (301).
 
 ## Automatic Deployments
 
@@ -118,11 +120,6 @@ Once set up, Cloudflare Pages will automatically deploy:
 - Check that all dependencies are in `package.json`
 - Ensure Node.js version is 18 or higher
 - Review build logs in Cloudflare Pages dashboard
-
-### 404 on page refresh
-
-- Verify `public/_redirects` file exists with correct content
-- Redeploy the project
 
 ### Styles not loading
 
