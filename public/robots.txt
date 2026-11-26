@@ -1,36 +1,32 @@
 # Smilist Dental Clinic - robots.txt
 # https://smilistdental.com
+#
+# Everything is open to every crawler, including AI search and answer engines,
+# so they can read, cite and link to the clinic's pages.
 
 User-agent: *
 Allow: /
 
-# Sitemap for search engines and crawlers
-Sitemap: https://smilistdental.com/sitemap.xml
-
-# AI crawlers - allow indexing so AI can discover and cite this site
-# OpenAI (ChatGPT)
-User-agent: GPTBot
-Allow: /
-
-# OpenAI (ChatGPT - images)
-User-agent: ChatGPT-User
-Allow: /
-
-# Anthropic (Claude)
-User-agent: Claude-Web
-Allow: /
-
-# Google (Bard / Gemini)
+# Named explicitly so a stricter default elsewhere can't shut them out.
+# Google (Search, AI Overviews, Gemini)
+User-agent: Googlebot
 User-agent: Google-Extended
-Allow: /
-
+# Bing (also powers ChatGPT Search and Copilot)
+User-agent: Bingbot
+# OpenAI
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+# Anthropic
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
 # Perplexity
 User-agent: PerplexityBot
+User-agent: Perplexity-User
+# Apple (Siri, Spotlight, Apple Intelligence)
+User-agent: Applebot
+User-agent: Applebot-Extended
 Allow: /
 
-# Common search engines
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
+Sitemap: https://smilistdental.com/sitemap.xml

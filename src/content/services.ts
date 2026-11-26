@@ -518,3 +518,24 @@ const prices: ServiceContent = {
 }
 
 export const SERVICES: ServiceContent[] = [clearAligners, braces, veneers, dentures, prices]
+
+/**
+ * Starting prices published to AI/search engines (JSON-LD `makesOffer` on the home page and
+ * llms.txt). Keep in sync with the prices in the copy above and on the home page.
+ */
+export const OFFERS: { name: string; minPrice: number; unit?: string; path?: string }[] = [
+  { name: 'ตรวจปรึกษา', minPrice: 0 },
+  { name: 'จัดฟันใส (TrioClear / Invisalign)', minPrice: 49000, path: '/clear-aligners' },
+  {
+    name: 'จัดฟันติดเครื่องมือ (ค่าติดเครื่องมือ ผ่อนรายเดือนได้)',
+    minPrice: 750,
+    path: '/braces',
+  },
+  {
+    name: 'วีเนียร์แบบฉีด (ต่อซี่ เมื่อทำฟันหน้า 8 ซี่)',
+    minPrice: 4000,
+    unit: 'ซี่',
+    path: '/veneers',
+  },
+  { name: 'ถอนฟัน', minPrice: 1500, path: '/prices' },
+]
