@@ -41,7 +41,7 @@ smillist-landing/
 │   ├── img/                 # Photos: .avif / .webp / .jpg (fallback) per image
 │   ├── favicon.svg          # Tooth logo
 │   ├── apple-touch-icon.png
-│   ├── _redirects           # Cloudflare Pages SPA routing
+│   ├── 404.html             # Real 404 page (Cloudflare Pages serves it for unknown paths)
 │   ├── robots.txt
 │   └── sitemap.xml
 ├── src/
@@ -72,11 +72,15 @@ for medical-facility advertising. Show starting prices only.
 
 ## SEO
 
+- **Prerendered HTML**: `yarn build` runs a second Vite SSR build (`src/entry-server.tsx`) and
+  `scripts/prerender.mjs` writes the rendered page into `dist/index.html`, so Google, AI crawlers and
+  LINE/Facebook previews see the full content without running JavaScript. `src/main.tsx` hydrates it.
+  Keep the first render deterministic: anything that depends on the clock, `window` or user settings
+  must be set in `useEffect` (see the opening-hours badge in `Hero.tsx`), or hydration will mismatch.
+- **404**: `public/404.html` (noindex). There is no SPA fallback, so unknown URLs return a real 404.
 - **robots.txt** / **sitemap.xml** in `public/`
-- **index.html** – Thai title/description, canonical, Open Graph (`/img/clinic_room.jpg`), JSON-LD `Dentist`
-  (address, phone, Tue–Sun 11:00–20:00)
-
-**หลัง deploy:** แทนที่ `https://smilist.com` ใน `public/robots.txt`, `public/sitemap.xml` และ `index.html` (canonical, og:url, og:image, JSON-LD) ด้วยโดเมนจริง
+- **index.html** – Thai title/description, canonical `https://smilistdental.com/`, Open Graph
+  (`/img/clinic_room.jpg`), JSON-LD `Dentist` (address, geo, phone, Tue–Sun 11:00–20:00)
 
 ## Contact Information
 

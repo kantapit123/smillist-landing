@@ -108,20 +108,24 @@ export default function Hero() {
   const reduce = useReducedMotion()
   const typed = useTypedWord(reduce)
 
-  const [now, setNow] = useState(() => Date.now())
+  // null until mounted: the page is prerendered at build time, so the server HTML must not
+  // depend on the clock (it would be stale and mismatch on hydration).
+  const [now, setNow] = useState<number | null>(null)
   useEffect(() => {
+    setNow(Date.now())
     const id = setInterval(() => setNow(Date.now()), 60000)
     return () => clearInterval(id)
   }, [])
 
   // Open Tue–Sun 11:00–20:00, closed Mondays.
-  const { wd, mins } = bangkokClock(now)
+  const { wd, mins } = now == null ? { wd: '', mins: 720 } : bangkokClock(now)
   const isMon = wd === 'Mon'
   // Hero photo follows Nakhon Phanom daylight: night (signs lit) from 18:00 to 06:00.
   const isNight = mins < 360 || mins >= 1080
-  const isOpen = !isMon && mins >= 660 && mins < 1200
+  const isOpen = now != null && !isMon && mins >= 660 && mins < 1200
   let statusLabel = 'เปิดอยู่ตอนนี้ · ปิด 20:00 น.'
-  if (!isOpen) {
+  if (now == null) statusLabel = 'เปิดอังคาร – อาทิตย์ 11:00 – 20:00 น.'
+  else if (!isOpen) {
     if (isMon) statusLabel = 'วันนี้ปิด · เปิดพรุ่งนี้ 11:00 น.'
     else if (mins < 660) statusLabel = 'เปิดวันนี้ 11:00 น.'
     else if (wd === 'Sun') statusLabel = 'ปิดแล้ว · เปิดวันอังคาร 11:00 น.'

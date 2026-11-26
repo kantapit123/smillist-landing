@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
-/** Read once on mount, like the original design logic. */
+/**
+ * Read once on mount, like the original design logic. Starts false so the prerendered
+ * HTML and the first client render match; the real preference applies right after hydration.
+ */
 export function useReducedMotion(): boolean {
-  const [reduce] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-  )
+  const [reduce, setReduce] = useState(false)
+  useEffect(() => {
+    setReduce(!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+  }, [])
   return reduce
 }
 
