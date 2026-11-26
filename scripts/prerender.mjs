@@ -48,6 +48,28 @@ function head(html, s) {
     /<meta\s+property="og:description"\s+content="[^"]*"\s*\/>/,
     `<meta property="og:description" content="${esc(s.description)}" />`
   )
+  // Share the page's own picture; its size varies, so drop the home image's width/height.
+  const img = `${SITE}/img/${s.image.name}.jpg`
+  html = swap(
+    html,
+    /<meta property="og:image" content="[^"]*" \/>/,
+    `<meta property="og:image" content="${img}" />`
+  )
+  html = swap(
+    html,
+    /<meta property="og:image:alt" content="[^"]*" \/>/,
+    `<meta property="og:image:alt" content="${esc(s.image.alt)}" />`
+  )
+  html = swap(
+    html,
+    /<meta name="twitter:image" content="[^"]*" \/>/,
+    `<meta name="twitter:image" content="${img}" />`
+  )
+  html = swap(
+    html,
+    /\s*<meta property="og:image:width" content="\d+" \/>\s*<meta property="og:image:height" content="\d+" \/>/,
+    ''
+  )
   const ld = [
     {
       '@context': 'https://schema.org',

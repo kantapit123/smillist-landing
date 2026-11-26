@@ -83,6 +83,10 @@ for medical-facility advertising. Show starting prices only.
   `dist/<page>.html` (Cloudflare Pages serves it at `/<page>`), per-page title/description/canonical,
   BreadcrumbList + FAQPage JSON-LD, and generates `dist/sitemap.xml` from the same list.
 - **404**: `public/404.html` (noindex). There is no SPA fallback, so unknown URLs return a real 404.
+- **Icons / share image**: `favicon.svg` (white two-tooth mark on wine red, full-bleed so Google's
+  round crop stays red) plus `favicon.ico` (16/32/48), `icon-192.png`, `icon-512.png` (JSON-LD logo) and
+  `apple-touch-icon.png`. Home shares `img/og-home.jpg` (1200×630 crop of `clinic_day`); service pages
+  share their own hero image (set in `scripts/prerender.mjs`).
 - **robots.txt** in `public/`; **sitemap.xml** is generated at build time
 - **index.html** – Thai title/description, canonical `https://smilistdental.com/`, Open Graph
   (`/img/clinic_room.jpg`), JSON-LD `Dentist` (address, geo, phone, Tue–Sun 11:00–20:00)
